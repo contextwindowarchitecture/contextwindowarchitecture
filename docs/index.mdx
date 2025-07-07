@@ -1,7 +1,52 @@
 ---
-title: Overview
+title: "Overview"
 description: "General overview of Context Window Architecture"
 ---
 
 ## Why Context Window Architecture?
 
+At the heart of every LLM interaction is the context window. It can be understood as the model's "working memory" or "attention span"—the total amount of information it can "see" at once when formulating a response. This information, which constitutes the prompt payload sent to the model's API, is the single most critical artifact in any AI-infused system. It is the sole conduit through which we can influence the model's behavior, ground its knowledge, and direct its reasoning.
+
+Everything the AI needs to consider must be packed into this finite space: system instructions, user personalization data, retrieved documents, task status, conversational history, tool definitions, and the user's latest query.
+
+CWA is not a new software library, framework, or proprietary tool. It is a **conceptual reference architecture** - a standardized blueprint or design pattern for strategically organizing the information within an LLM's context window. While other tools provide the _materials_ for building AI applications, CWA provides the _architectural plan_.
+
+_<u>The vision for CWA is to elevate the practice of prompt construction from an informal craft to a disciplined engineering practice.</u>_ By conceptualizing the context window as a stack of distinct, purposeful layers, CWA provides a mental model that brings clarity, predictability, and structure to LLM interaction design.
+
+_<u>The mission of the Context Window Architecture is to provide a standardized, layered model for developers and architects to strategically construct, manage, and diagnose the LLM prompt payload.</u>_ The adoption of this architecture will empower teams to build more predictable, capable, debuggable, and contextually aware AI systems, leading to more effective and trustworthy user experiences.
+
+<AccordionGroup>
+  <Accordion title="Layer 1: Instructions" icon="person">
+    
+  </Accordion>
+  <Accordion title="Layer 2: User Info" icon="user">
+    
+  </Accordion>
+  <Accordion title="Layer 3: Curated Knowledge" icon="brain">
+    
+  </Accordion>
+  <Accordion title="Layer 4: Task/Goal State" icon="list">
+    
+  </Accordion>
+  <Accordion title="Layer 5: Chat History Summary" icon="notebook">
+    
+  </Accordion>
+  <Accordion title="Layer 6: Chat History" icon="note">
+    
+  </Accordion>
+  <Accordion title="Layer 7: Tool Explanation" icon="hammer">
+    
+  </Accordion>
+  <Accordion title="Layer 8: Function Call Results" icon="check">
+    
+  </Accordion>
+  <Accordion title="Layer 9: Few Shot Examples" icon="copy">
+    
+  </Accordion>
+  <Accordion title="Layer 10: Dynamic Output Formatting & Constraints" icon="lock">
+    
+  </Accordion>
+  <Accordion title="Layer 11: Latest Query" icon="question">
+    
+  </Accordion>
+</AccordionGroup>
