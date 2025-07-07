@@ -1,0 +1,52 @@
+{
+  "$schema": "https://mintlify.com/docs.json",
+  "theme": "mint",
+  "name": "Context Window Architecture",
+  "colors": {
+    "primary": "#09090b",
+    "light": "#FAFAFA",
+    "dark": "#09090b"
+  },
+  "favicon": "/favicon.svg",
+  "navbar": {
+    "links": [
+      {
+        "label": "GitHub",
+        "href": "https://github.com/context-window-architecture"
+      }
+    ]
+  },
+  "navigation": {
+    "versions": [
+      {
+        "version": "Draft",
+        "groups": [
+          {
+            "group": "Documentation",
+            "pages": [
+              "index"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "logo": {
+    "light": "/assets/logo/light.svg",
+    "dark": "/assets/logo/dark.svg"
+  },
+  "seo": {
+    "metatags": {
+      "og:image": "#"
+    },
+    "indexing": "navigable"
+  },
+  "footer": {
+    "socials": {
+      "github": "https://github.com/context-window-architecture"
+    }
+  },
+  "contextual": {
+    "options": ["copy", "view"]
+  }
+}
