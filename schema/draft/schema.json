@@ -1,0 +1,485 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://example.com/schemas/context-window-architecture/v1.0.0",
+  "title": "Context Window Architecture (CWA) Schema",
+  "description": "A structured approach for organizing information within an LLM's context window to enable effective long-term memory integration",
+  "type": "object",
+  "properties": {
+    "version": {
+      "type": "string",
+      "description": "Version of the CWA schema being used",
+      "default": "1.0.0"
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Metadata about this context window instance",
+      "properties": {
+        "created_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp when this context was created"
+        },
+        "session_id": {
+          "type": "string",
+          "description": "Unique identifier for the conversation session"
+        },
+        "user_id": {
+          "type": "string",
+          "description": "Unique identifier for the user"
+        },
+        "context_size_estimate": {
+          "type": "integer",
+          "description": "Estimated token count for the entire context"
+        }
+      }
+    },
+    "layers": {
+      "type": "object",
+      "description": "The 11 layers of the Context Window Architecture, ordered by priority",
+      "properties": {
+        "instructions": {
+          "type": "object",
+          "description": "Layer 1: Core system instructions and behavioral guidelines",
+          "properties": {
+            "system_role": {
+              "type": "string",
+              "description": "Primary role or persona for the AI assistant"
+            },
+            "behavioral_constraints": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "List of behavioral rules and constraints"
+            },
+            "capabilities": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "Explicitly defined capabilities and limitations"
+            },
+            "tone_and_style": {
+              "type": "string",
+              "description": "Guidance on communication style and tone"
+            }
+          },
+          "required": ["system_role"]
+        },
+        "user_info": {
+          "type": "object",
+          "description": "Layer 2: User-specific information and preferences",
+          "properties": {
+            "profile": {
+              "type": "object",
+              "description": "Basic user profile information",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "preferences": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "description": "User preferences as key-value pairs"
+                },
+                "context_history": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "description": "Relevant historical context about the user"
+                }
+              }
+            },
+            "communication_preferences": {
+              "type": "object",
+              "properties": {
+                "verbosity": {
+                  "type": "string",
+                  "enum": ["concise", "balanced", "detailed"],
+                  "default": "balanced"
+                },
+                "technical_level": {
+                  "type": "string",
+                  "enum": ["beginner", "intermediate", "expert"],
+                  "default": "intermediate"
+                },
+                "language": {
+                  "type": "string",
+                  "default": "en"
+                }
+              }
+            }
+          }
+        },
+        "curated_knowledge_context": {
+          "type": "object",
+          "description": "Layer 3: Domain-specific knowledge retrieved from LTM",
+          "properties": {
+            "sources": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "source_id": {
+                    "type": "string"
+                  },
+                  "source_type": {
+                    "type": "string",
+                    "enum": ["document", "knowledge_graph", "vector_db", "database"]
+                  },
+                  "content": {
+                    "type": "string",
+                    "description": "The actual knowledge content"
+                  },
+                  "relevance_score": {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 1,
+                    "description": "Relevance score from retrieval system"
+                  },
+                  "metadata": {
+                    "type": "object",
+                    "additionalProperties": true
+                  }
+                },
+                "required": ["source_id", "content"]
+              }
+            },
+            "total_sources": {
+              "type": "integer",
+              "description": "Total number of knowledge sources included"
+            }
+          }
+        },
+        "task_goal_state_context": {
+          "type": "object",
+          "description": "Layer 4: Current task or goal state information",
+          "properties": {
+            "active_task": {
+              "type": "object",
+              "properties": {
+                "task_id": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string"
+                },
+                "status": {
+                  "type": "string",
+                  "enum": ["not_started", "in_progress", "blocked", "completed"]
+                },
+                "progress": {
+                  "type": "object",
+                  "properties": {
+                    "completed_steps": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "next_steps": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "blockers": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "goal_hierarchy": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "goal_id": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "priority": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 10
+                  }
+                }
+              }
+            }
+          }
+        },
+        "chat_history_summary": {
+          "type": "object",
+          "description": "Layer 5: Summarized version of conversation history",
+          "properties": {
+            "summary": {
+              "type": "string",
+              "description": "Compressed summary of key conversation points"
+            },
+            "key_topics": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "Main topics discussed in the conversation"
+            },
+            "important_decisions": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "Key decisions or conclusions reached"
+            },
+            "summarization_method": {
+              "type": "string",
+              "enum": ["llm_generated", "extractive", "abstractive", "hybrid"]
+            }
+          }
+        },
+        "chat_history": {
+          "type": "object",
+          "description": "Layer 6: Recent conversation history",
+          "properties": {
+            "messages": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "role": {
+                    "type": "string",
+                    "enum": ["user", "assistant", "system"]
+                  },
+                  "content": {
+                    "type": "string"
+                  },
+                  "timestamp": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "message_id": {
+                    "type": "string"
+                  }
+                },
+                "required": ["role", "content"]
+              },
+              "description": "Array of recent messages, ordered chronologically"
+            },
+            "max_messages": {
+              "type": "integer",
+              "description": "Maximum number of messages to retain",
+              "default": 10
+            },
+            "truncation_strategy": {
+              "type": "string",
+              "enum": ["fifo", "importance_based", "summary_based"],
+              "default": "fifo"
+            }
+          }
+        },
+        "tool_explanation": {
+          "type": "object",
+          "description": "Layer 7: Available tools and their descriptions",
+          "properties": {
+            "available_tools": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "tool_name": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "parameters": {
+                    "type": "object",
+                    "description": "JSON Schema for tool parameters"
+                  },
+                  "usage_examples": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "required": ["tool_name", "description"]
+              }
+            },
+            "memory_functions": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "function_name": {
+                    "type": "string"
+                  },
+                  "purpose": {
+                    "type": "string",
+                    "enum": ["store", "retrieve", "update", "delete", "search"]
+                  },
+                  "memory_type": {
+                    "type": "string",
+                    "enum": ["working_memory", "recall_memory", "archival_memory"]
+                  }
+                }
+              },
+              "description": "Special functions for memory management"
+            }
+          }
+        },
+        "function_call_results": {
+          "type": "object",
+          "description": "Layer 8: Results from recent function/tool calls",
+          "properties": {
+            "recent_calls": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "function_name": {
+                    "type": "string"
+                  },
+                  "parameters": {
+                    "type": "object"
+                  },
+                  "result": {
+                    "type": "object"
+                  },
+                  "timestamp": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "execution_time_ms": {
+                    "type": "integer"
+                  }
+                },
+                "required": ["function_name", "result"]
+              }
+            },
+            "max_results": {
+              "type": "integer",
+              "description": "Maximum number of function results to retain",
+              "default": 5
+            }
+          }
+        },
+        "few_shot_examples": {
+          "type": "object",
+          "description": "Layer 9: Examples demonstrating desired behavior",
+          "properties": {
+            "examples": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "input": {
+                    "type": "string",
+                    "description": "Example input/question"
+                  },
+                  "output": {
+                    "type": "string",
+                    "description": "Desired output/response"
+                  },
+                  "explanation": {
+                    "type": "string",
+                    "description": "Optional explanation of why this is the correct response"
+                  },
+                  "category": {
+                    "type": "string",
+                    "description": "Category or type of example"
+                  }
+                },
+                "required": ["input", "output"]
+              }
+            },
+            "selection_strategy": {
+              "type": "string",
+              "enum": ["static", "dynamic", "similarity_based"],
+              "description": "How examples are selected for inclusion"
+            }
+          }
+        },
+        "dynamic_output_formatting": {
+          "type": "object",
+          "description": "Layer 10: Dynamic output formatting and constraints",
+          "properties": {
+            "format_type": {
+              "type": "string",
+              "enum": ["text", "json", "markdown", "structured", "custom"]
+            },
+            "constraints": {
+              "type": "object",
+              "properties": {
+                "max_length": {
+                  "type": "integer",
+                  "description": "Maximum response length in tokens"
+                },
+                "required_sections": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "description": "Sections that must be included in response"
+                },
+                "forbidden_content": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "description": "Content patterns to avoid"
+                }
+              }
+            },
+            "template": {
+              "type": "string",
+              "description": "Optional response template to follow"
+            }
+          }
+        },
+        "user_latest_question": {
+          "type": "object",
+          "description": "Layer 11: The user's current/latest question or input",
+          "properties": {
+            "content": {
+              "type": "string",
+              "description": "The actual user input/question"
+            },
+            "timestamp": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "input_type": {
+              "type": "string",
+              "enum": ["question", "command", "continuation", "clarification", "feedback"]
+            },
+            "attachments": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "enum": ["image", "file", "url", "code"]
+                  },
+                  "content": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "required": ["content"]
+        }
+      },
+      "required": ["instructions", "user_latest_question"]
+    }
+  },
+  "required": ["layers"]
+}
