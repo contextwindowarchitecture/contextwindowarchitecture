@@ -1,0 +1,26 @@
+---
+title: "Modern AI Stack with CWA"
+description: "How CWA complements, supplements, or augments your AI stack."
+---
+
+The Context Window Architecture does not exist in a vacuum. It enters a vibrant and rapidly evolving ecosystem of tools, techniques, and frameworks, all aimed at making LLMs more powerful and reliable. To fully appreciate the strategic value of CWA, it is essential to position it relative to two of the most significant concepts in modern AI development: Retrieval-Augmented Generation (RAG) and LLM Agent Frameworks. The central argument of this section is that CWA is not a competitor to these technologies but a higher-level architectural pattern that organizes and enhances them. CWA provides the _blueprint_, while RAG and agent frameworks provide the _specialized tools and materials_.
+
+CWA occupies a unique and unoccupied niche in the modern AI stack. It is not another RAG technique, nor is it another implementation framework. It is the architectural layer of abstraction that sits above them, providing structure, guidance, and a common language for building complex systems. It answers the question of not "what can I build?" but "how should I build it?"
+
+### **High-Level Comparative Analysis of CWA, RAG, and Agent Frameworks**
+
+This table provides a final, executive-level summary of the key distinctions, crystallizing the unique value proposition of each technology.
+
+| Feature                  | Context Window Architecture (CWA)                                                              | Retrieval-Augmented Generation (RAG)                                                                | Agent Frameworks (e.g., LangChain)                                                                           |
+| :----------------------- | :--------------------------------------------------------------------------------------------- | :-------------------------------------------------------------------------------------------------- | :----------------------------------------------------------------------------------------------------------- |
+| **Primary Purpose**      | To provide a standardized, conceptual blueprint for organizing LLM context.                    | To ground LLM responses in external, factual knowledge to reduce hallucination. <sup>8</sup>        | To provide a toolkit of reusable components for implementing LLM applications. <sup>2</sup>                  |
+| **Scope**                | Encompasses the entire prompt payload, including identity, knowledge, memory, task, and tools. | Focused specifically on the retrieval and injection of external data. <sup>11</sup>                 | Covers implementation concerns like model I/O, data connections, chaining, agents, and memory. <sup>17</sup> |
+| **Level of Abstraction** | Conceptual / Architectural Pattern.                                                            | Implementation Pattern / Technique.                                                                 | Implementation / Software Toolkit.                                                                           |
+| **Key Artifact**         | The **Structured Prompt Payload**—a well-organized set of contextual information.              | The **Retrieved Context**—the specific snippets of information pulled from a knowledge base.        | The **Runnable Application/Agent**—the final, executable code.                                               |
+| **Relationship**         | CWA **orchestrates** RAG as one of its layers and **guides** the use of Agent Frameworks.      | RAG is **implemented as CWA Layer 3** and is a technique often **facilitated by** Agent Frameworks. | Agent Frameworks are used to **implement** the logic defined by the CWA blueprint.                           |
+
+[TODO] Prompt Engineering
+
+[TODO] Model Context Protocol
+
+[TODO] Other protocols

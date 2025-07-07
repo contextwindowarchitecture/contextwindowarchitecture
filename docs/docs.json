@@ -26,6 +26,15 @@
             "pages": [
               "index"
             ]
+          },
+          {
+            "group": "Modern AI Stack",
+            "pages": [
+              "stack/rag",
+              "stack/agent-frameworks",
+              "stack/prompt-engineering",
+              "stack/mcp"
+            ]
           }
         ]
       }
