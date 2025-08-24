@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://example.com/schemas/context-window-architecture/v1.0.0",
+  "$id": "https://contextwindowarchitecture.io/schemas/cwa/v1.0.0",
   "title": "Context Window Architecture (CWA) Schema",
   "description": "A structured approach for organizing information within an LLM's context window to enable effective long-term memory integration",
   "type": "object",
