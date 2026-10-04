@@ -15,7 +15,7 @@ One profile id and version name one profile across the corpus, as R-20 requires 
 
 Some cases have a generator in `generators/`. It holds a table of each candidate's intended outcome, and it derives the expected trace and payload from that table rather than from any assembler's logic. Regenerate a case with `python3 conformance/generators/<case>.py`, and review the diff.
 
-`check.py` checks the contract's own consistency: every case and rejection against the schemas, digests and hashes against their definitions here, each rejection against exactly one Snapshot check, reason codes against the requirements that cite them, and `SPEC.md` and the spec page against `contract/requirements.json`. Run `python3 conformance/check.py` after editing any of them, or `python3 conformance/check.py --write` to regenerate the derived copies; it needs the `jsonschema` and `rfc3339-validator` packages, the second so that `format: date-time` is asserted (Timestamps), and it stops when it is not.
+`check.py` checks the contract's own consistency: every case and rejection against the schemas, digests and hashes against their definitions here, each rejection against exactly one Snapshot check, reason codes against the requirements that cite them, and `SPEC.md` and the spec page against `contract/requirements.json`. Run `python3 conformance/check.py` after editing any of them. `npm run build:contract` regenerates both derived copies, and `python3 conformance/check.py --write` the spec page's alone. `check.py` needs the `jsonschema` and `rfc3339-validator` packages, the second so that `format: date-time` is asserted (Timestamps), and it stops when it is not.
 
 ## Running a case
 
