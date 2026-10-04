@@ -1,0 +1,31 @@
+# This repository's files against the website commit its lock names: each is the file the website publishes there,
+# none is missing, and none has been added beside them. The website writes this file too (scripts/export-spec.mjs).
+name: ci
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  export:
+    name: files match the website
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - id: lock
+        run: echo "commit=$(python3 -c 'import json; print(json.load(open("website.lock.json"))["website_commit"])')" >> "$GITHUB_OUTPUT"
+      # The locked commit must be pushed to the website repository for this checkout to find it.
+      - uses: actions/checkout@v5
+        with:
+          repository: contextwindowarchitecture/website
+          ref: ${{ steps.lock.outputs.commit }}
+          path: website
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+      - run: node scripts/export-spec.mjs .. --check
+        working-directory: website
