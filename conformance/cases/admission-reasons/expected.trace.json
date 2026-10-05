@@ -249,6 +249,18 @@
       "slot": "evidence.knowledge"
     },
     {
+      "item_id": "kb:authority-null",
+      "reason": "unknown_authority",
+      "stage": "assembler",
+      "slot": "evidence.knowledge"
+    },
+    {
+      "item_id": "kb:authority-number",
+      "reason": "unknown_authority",
+      "stage": "assembler",
+      "slot": "evidence.knowledge"
+    },
+    {
       "item_id": "kb:bad-authority",
       "reason": "unknown_authority",
       "stage": "assembler",
@@ -391,6 +403,21 @@
       "slot": "evidence.knowledge"
     },
     {
+      "item_id": "kb:slot-array",
+      "reason": "unknown_slot",
+      "stage": "assembler"
+    },
+    {
+      "item_id": "kb:slot-null",
+      "reason": "unknown_slot",
+      "stage": "assembler"
+    },
+    {
+      "item_id": "kb:slot-number",
+      "reason": "unknown_slot",
+      "stage": "assembler"
+    },
+    {
       "item_id": "kb:space-date",
       "reason": "invalid_structure",
       "stage": "assembler",
@@ -522,7 +549,7 @@
     "route_policy_version": "admission/v1",
     "tokenizer": "fixture-whitespace/v1",
     "renderer": "fixture-xml/v1",
-    "snapshot_digest": "120fa0bd5e78eac87a5e7c8064c2998cae00a5638d6219b2bf80e56dcdd0a213"
+    "snapshot_digest": "8b37e3b5a09778f7974036522e4e7b5dafdeca847c03fb55d9087f49fe21ef4f"
   },
   "defaults_filled": [
     {

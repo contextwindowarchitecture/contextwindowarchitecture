@@ -665,6 +665,108 @@
           }
         },
         {
+          "id": "kb:slot-number",
+          "slot": 5,
+          "source": "src:kb:slot-number",
+          "source_version": "1",
+          "authority": "reference_only",
+          "trust": "unverified",
+          "freshness": "2026-09-12T15:30:00Z",
+          "body": "A slot that is a number.",
+          "token_budget": null,
+          "variants": [],
+          "conflict_policy": "defers",
+          "lineage": "verbatim",
+          "eligibility": "route-policy",
+          "injection_risk": "untrusted_content",
+          "relevance": 0.91,
+          "scope": {
+            "tenant": "acme"
+          }
+        },
+        {
+          "id": "kb:slot-null",
+          "slot": null,
+          "source": "src:kb:slot-null",
+          "source_version": "1",
+          "authority": "reference_only",
+          "trust": "unverified",
+          "freshness": "2026-09-12T15:30:00Z",
+          "body": "A slot that is null.",
+          "token_budget": null,
+          "variants": [],
+          "conflict_policy": "defers",
+          "lineage": "verbatim",
+          "eligibility": "route-policy",
+          "injection_risk": "untrusted_content",
+          "relevance": 0.91,
+          "scope": {
+            "tenant": "acme"
+          }
+        },
+        {
+          "id": "kb:slot-array",
+          "slot": [
+            "evidence.knowledge"
+          ],
+          "source": "src:kb:slot-array",
+          "source_version": "1",
+          "authority": "reference_only",
+          "trust": "unverified",
+          "freshness": "2026-09-12T15:30:00Z",
+          "body": "A slot that is an array.",
+          "token_budget": null,
+          "variants": [],
+          "conflict_policy": "defers",
+          "lineage": "verbatim",
+          "eligibility": "route-policy",
+          "injection_risk": "untrusted_content",
+          "relevance": 0.91,
+          "scope": {
+            "tenant": "acme"
+          }
+        },
+        {
+          "id": "kb:authority-number",
+          "slot": "evidence.knowledge",
+          "source": "src:kb:authority-number",
+          "source_version": "1",
+          "authority": 7,
+          "trust": "unverified",
+          "freshness": "2026-09-12T15:30:00Z",
+          "body": "An authority that is a number.",
+          "token_budget": null,
+          "variants": [],
+          "conflict_policy": "defers",
+          "lineage": "verbatim",
+          "eligibility": "route-policy",
+          "injection_risk": "untrusted_content",
+          "relevance": 0.91,
+          "scope": {
+            "tenant": "acme"
+          }
+        },
+        {
+          "id": "kb:authority-null",
+          "slot": "evidence.knowledge",
+          "source": "src:kb:authority-null",
+          "source_version": "1",
+          "authority": null,
+          "trust": "unverified",
+          "freshness": "2026-09-12T15:30:00Z",
+          "body": "An authority that is null.",
+          "token_budget": null,
+          "variants": [],
+          "conflict_policy": "defers",
+          "lineage": "verbatim",
+          "eligibility": "route-policy",
+          "injection_risk": "untrusted_content",
+          "relevance": 0.91,
+          "scope": {
+            "tenant": "acme"
+          }
+        },
+        {
           "id": "kb:blank-eligibility",
           "slot": "evidence.knowledge",
           "source": "src:kb:blank-eligibility",
