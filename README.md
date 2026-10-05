@@ -33,6 +33,8 @@ Assemblers in [Python](https://github.com/contextwindowarchitecture/assembler-py
 
 The specification is authored in the [website repository](https://github.com/contextwindowarchitecture/website), and every file here is written from it: nothing is edited in this repository. Each file under the paths above is a byte-for-byte copy of the website's file at the same path. [website.lock.json](website.lock.json) names the website commit the copy was taken at and the SHA-256 of every file, and this repository's CI checks the files against that commit.
 
+Releases here follow the website's. A tag is released only once its files match the website at the same tag, so watching this repository's releases is enough to follow the specification. While the specification is a draft, the `draft-release` tag moves to each new export.
+
 The [Spec page](https://contextwindowarchitecture.io/spec.html) is the normative text, and it carries the changelog of every revision. SPEC.md is generated from it.
 
 To report a problem or propose a change, open an issue or pull request in the [website repository](https://github.com/contextwindowarchitecture/website).

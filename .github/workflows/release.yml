@@ -1,0 +1,52 @@
+# A GitHub release for each tag, made once ci passes on the tagged commit against the website at the same tag, so
+# a tag here is released only when the website carries it and these files are the ones it publishes there. The
+# notes name the website commit the files were exported from and the draft's date. A tag that is not vX.Y.Z, such
+# as draft-release, is a prerelease. An existing tag is released by hand: gh workflow run release.yml -f tag=<tag>
+# The website writes this file too (scripts/export-spec.mjs).
+name: release
+
+on:
+  push:
+    tags: ["*"]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: The existing tag to release
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  ci:
+    uses: ./.github/workflows/ci.yml
+    with:
+      ref: refs/tags/${{ inputs.tag || github.ref_name }}
+      website_ref: refs/tags/${{ inputs.tag || github.ref_name }}
+
+  release:
+    name: GitHub release
+    needs: ci
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    env:
+      TAG: ${{ inputs.tag || github.ref_name }}
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: refs/tags/${{ env.TAG }}
+      - run: |
+          commit=$(python3 -c 'import json; print(json.load(open("website.lock.json"))["website_commit"])')
+          draft=$(grep -oE '^Draft of [0-9]{4}-[0-9]{2}-[0-9]{2}' SPEC.md || true)
+          {
+            printf 'The specification as the website publishes it at its `%s` tag: SPEC.md, the JSON Schemas, the contract data, the conformance cases and the examples. Exported from website [`%s`](https://github.com/contextwindowarchitecture/website/commit/%s).\n\n' "$TAG" "${commit::7}" "$commit"
+            printf '%s. The Spec page carries the changelog of every revision: https://contextwindowarchitecture.io/spec.html#changelog\n' "${draft:-Draft}"
+          } > notes.md
+      - env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          prerelease=()
+          [[ $TAG =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]] || prerelease=(--prerelease)
+          gh release create "$TAG" --verify-tag --title "$TAG" --notes-file notes.md "${prerelease[@]}"
