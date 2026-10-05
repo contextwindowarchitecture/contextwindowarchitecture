@@ -27,7 +27,7 @@ This repository holds the specification by itself: its text, its JSON Schemas, i
 
 ## Implementations
 
-Assemblers in [Python](https://github.com/contextwindowarchitecture/assembler-python), [TypeScript](https://github.com/contextwindowarchitecture/assembler-typescript) and [Go](https://github.com/contextwindowarchitecture/assembler-go) implement the specification. The [Assembler page](https://contextwindowarchitecture.io/assembler.html) shows the conformance report each one publishes against these cases.
+Assemblers in [Python](https://github.com/contextwindowarchitecture/assembler-python), [TypeScript](https://github.com/contextwindowarchitecture/assembler-typescript), [Go](https://github.com/contextwindowarchitecture/assembler-go) and [Rust](https://github.com/contextwindowarchitecture/assembler-rust) implement the specification. The [Assembler page](https://contextwindowarchitecture.io/assembler.html) shows the conformance report each one publishes against these cases.
 
 ## Where these files come from
 
