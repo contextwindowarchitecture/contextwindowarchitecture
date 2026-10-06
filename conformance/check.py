@@ -298,8 +298,8 @@ for s in model.get("stages", []):
 
 
 # ---------------------------------------------------------------------------------------------- SPEC.md
-# SPEC.md is written by hand, except the blocks between its generated markers. Each is written here the way
-# scripts/spec-markdown.mjs reads the same list back from the Spec page, so the page and this file can be compared.
+# SPEC.md is written by hand, except the blocks between its generated markers. Each is written here the way the
+# website reads the same list back from the Spec page, so the page and this file can be compared.
 SECTIONS = {"model": 2, "gov": 3, "fit": 4, "prof": 5, "trace": 6}
 RULE_LISTS = {"rulesModel": "model", "rulesGov": "gov", "rulesFit": "fit", "rulesProf": "prof", "rulesTrace": "trace"}
 GENERATED = re.compile(r"<!-- generated:(\w+) -->\n\n([\s\S]*?)\n\n<!-- /generated:\1 -->")

@@ -1,5 +1,5 @@
 {
-  "website_commit": "cef9dec4d02c20a61235a0ae8090660099df2e6c",
+  "website_commit": "d6875d319e299c5b2c55074bb3903f4fe06c56e1",
   "files": {
     ".github/workflows/ci.yml": "db13ecc01f5c9fb5fa5d45e83c6e7a2891686dae5e559569a58873fb232e8baf",
     ".github/workflows/release.yml": "65a2635a0dfd239ee35e996a52256b9318d6aefd8ee0b889917a82fbf60bae07",
@@ -231,7 +231,7 @@
     "conformance/cases/tokenizer-estimate-utf8/expected.payload.txt": "ab80692164867aa12cabec2f37ebaa26d614276dbfb9728e6e4070bfbebed920",
     "conformance/cases/tokenizer-estimate-utf8/expected.trace.json": "1b15e40572180340ff216317ec39fd29608ec000174203ce6b9509c05c198024",
     "conformance/cases/tokenizer-estimate-utf8/snapshot.json": "c16376993a01699cc41a0849aa1e6c2106c33d0019fb703ee7e9b220f7f40c38",
-    "conformance/check.py": "f98d4447fe08271a56b4777a34b4a4fbd5e961c4ff093ee1896673c4c7b44ea9",
+    "conformance/check.py": "82a7ca266a256f686a8566127213a98255774c30be9feab8992b25f22c285834",
     "conformance/generators/admission-reasons.py": "71561fb9c55ea90ff8ee64e86044ab7fb17d954bb3af3e69b7986312c7d6b8c8",
     "conformance/generators/all.py": "accaf21a720a6246b13df09bbe1ca00386607c457f7051084232a96f802cc582",
     "conformance/generators/capability-kind.py": "b94b4af43083392d5d910b48c799c98df860934b519a182ccc9a9940f3dc8d12",
@@ -325,8 +325,8 @@
     "guides/producers.md": "7e6a88f5609fe054879d698781dc5f804baec1550378819659bc13701a0c8f8e",
     "implementations/go.json": "59d2525d35d9c8e15de3697d70a377e29996fb9f49a52ce7056b37d5b8159647",
     "implementations/index.json": "ba1a23678542963ac97687c0e56c3de2f4125bdc188951759b35316c233871ae",
-    "implementations/python.json": "b06ef92ff0363c454035d0fdc3bb5da06f196d9f5f477b139a5ea4ebbf2c775a",
-    "implementations/python.status.json": "052beee0413a9508d5e8407cb44d2b00e35aa6c022d556ef8e36a5405044008a",
+    "implementations/python.json": "de1a3b6cee70985e1b1631530e31ff7110b90c1b36e22041a5e3b6f67c267520",
+    "implementations/python.status.json": "45d18129f0a8177b93d6ea8cbde69f82b80c8b85d0b09d7aaf02ecd0de16bc79",
     "implementations/rust.json": "595ae87b58afb37ca91815d766fe10fcf0c452ac1fd24d8be4b0cd6f43e98785",
     "implementations/typescript.json": "25bfd1953a878a18e069f9c47f22fc17b5877151d0a2b9e9501cf89964c455e9",
     "schema/conflict_group.schema.json": "06b6df97c84474371194b7f8758c3264d61c96b4a50ca1e865bff3e811365b89",
