@@ -1,0 +1,18 @@
+[
+  {
+    "id": "python",
+    "label": "Python"
+  },
+  {
+    "id": "typescript",
+    "label": "TypeScript"
+  },
+  {
+    "id": "go",
+    "label": "Go"
+  },
+  {
+    "id": "rust",
+    "label": "Rust"
+  }
+]

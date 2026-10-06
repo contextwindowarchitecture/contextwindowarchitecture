@@ -1,0 +1,142 @@
+{
+  "source": {
+    "repository": "contextwindowarchitecture/assembler-python",
+    "commit": "5ff7ee1f33cf743a28b747621f8881c5cfc69502",
+    "dirty": false,
+    "tags": [
+      "draft-release"
+    ]
+  },
+  "requirements": [
+    {
+      "id": "R-1",
+      "status": "implemented",
+      "tests": 7
+    },
+    {
+      "id": "R-2",
+      "status": "implemented",
+      "tests": 14
+    },
+    {
+      "id": "R-3",
+      "status": "implemented",
+      "tests": 10
+    },
+    {
+      "id": "R-4",
+      "status": "boundary-checked",
+      "tests": 5
+    },
+    {
+      "id": "R-5",
+      "status": "documented",
+      "tests": 0
+    },
+    {
+      "id": "R-6",
+      "status": "implemented",
+      "tests": 8
+    },
+    {
+      "id": "R-7",
+      "status": "implemented",
+      "tests": 12
+    },
+    {
+      "id": "R-8",
+      "status": "boundary-checked",
+      "tests": 2
+    },
+    {
+      "id": "R-9",
+      "status": "boundary-checked",
+      "tests": 7
+    },
+    {
+      "id": "R-10",
+      "status": "boundary-checked",
+      "tests": 8
+    },
+    {
+      "id": "R-11",
+      "status": "boundary-checked",
+      "tests": 15
+    },
+    {
+      "id": "R-12",
+      "status": "boundary-checked",
+      "tests": 10
+    },
+    {
+      "id": "R-13",
+      "status": "boundary-checked",
+      "tests": 6
+    },
+    {
+      "id": "R-14",
+      "status": "boundary-checked",
+      "tests": 4
+    },
+    {
+      "id": "R-15",
+      "status": "boundary-checked",
+      "tests": 10
+    },
+    {
+      "id": "R-16",
+      "status": "boundary-checked",
+      "tests": 63
+    },
+    {
+      "id": "R-17",
+      "status": "implemented",
+      "tests": 23
+    },
+    {
+      "id": "R-18",
+      "status": "boundary-checked",
+      "tests": 6
+    },
+    {
+      "id": "R-19",
+      "status": "boundary-checked",
+      "tests": 6
+    },
+    {
+      "id": "R-20",
+      "status": "boundary-checked",
+      "tests": 17
+    },
+    {
+      "id": "R-21",
+      "status": "implemented",
+      "tests": 26
+    },
+    {
+      "id": "R-22",
+      "status": "implemented",
+      "tests": 8
+    },
+    {
+      "id": "R-23",
+      "status": "boundary-checked",
+      "tests": 18
+    },
+    {
+      "id": "R-24",
+      "status": "implemented",
+      "tests": 15
+    },
+    {
+      "id": "R-25",
+      "status": "implemented",
+      "tests": 15
+    },
+    {
+      "id": "R-26",
+      "status": "implemented",
+      "tests": 15
+    }
+  ]
+}
