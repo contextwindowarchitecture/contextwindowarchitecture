@@ -32,9 +32,14 @@
     },
     "contract": {
       "type": "object",
-      "description": "The website commit the cases were taken from, and whether that working tree had uncommitted changes.",
+      "description": "The repository and commit the cases were taken from, and whether that working tree had uncommitted changes.",
       "properties": {
-        "website_commit": {
+        "repository": {
+          "type": "string",
+          "description": "The repository as owner/name on GitHub.",
+          "pattern": "^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+(?![\\s\\S])"
+        },
+        "commit": {
           "type": "string",
           "pattern": "^[0-9a-f]{40}$",
           "minLength": 40,
@@ -45,7 +50,8 @@
         }
       },
       "required": [
-        "website_commit",
+        "repository",
+        "commit",
         "dirty"
       ],
       "additionalProperties": false

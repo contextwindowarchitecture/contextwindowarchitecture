@@ -237,7 +237,7 @@ A registry holds the profiles and route policies an application assembles with, 
 
 ## Reporting results
 
-An implementation reports a run as `conformance-report.json`, valid against `schema/conformance_report.schema.json`. The report names the implementation and the website commit its cases came from, and holds one entry per directory under `cases/`, ordered by id, with the `rules` from that case's `case.json` and one outcome:
+An implementation reports a run as `conformance-report.json`, valid against `schema/conformance_report.schema.json`. The report names the implementation, and the repository and commit its cases came from, and holds one entry per directory under `cases/`, ordered by id, with the `rules` from that case's `case.json` and one outcome:
 
 - `passed`: the payload and trace match, as Running a case describes;
 - `failed`: anything else, including an exception or a trace the schema rejects. `detail` says what differed;
@@ -249,6 +249,6 @@ It also holds one entry per directory under `rejections/`, ordered by id, in `re
 - `failed`: anything else: it assembled a payload, refused, or raised something other than a rejection. `detail` says what happened;
 - `skipped`: the case uses an optional renderer the implementation does not provide, and the check the case breaks is that renderer's, as it is in `profile-unrealizable`, `profile-invalid-tag`, the `messages-*` cases and `blocks-system-after-xml`. Only the last uses an optional renderer. `detail` names it. Every other check runs before a renderer is needed and no check needs a tokenizer, so no other rejection case is skipped, and neither is one whose renderer is required.
 
-Only `passed` and `rejected` count. A report without `rejections` has not run them. A trace that validates against `schema/trace.schema.json` but differs from the expected one has failed: schema validation alone is not conformance (R-21). The Assembler page shows the reports of the four implementations: the Python reference assembler (beside its `status.json`), the TypeScript assembler, the Go assembler and the Rust assembler. A report counts a case only as the case is now: the import records a digest of each case's files at the report's `contract.website_commit`, and a case published or changed since then counts as not passing until the implementation runs it again.
+Only `passed` and `rejected` count. A report without `rejections` has not run them. A trace that validates against `schema/trace.schema.json` but differs from the expected one has failed: schema validation alone is not conformance (R-21). The Assembler page shows the reports of the four implementations: the Python reference assembler (beside its `status.json`), the TypeScript assembler, the Go assembler and the Rust assembler. A report counts a case only as the case is now: the import records a digest of each case's files at the report's `contract.commit`, and a case published or changed since then counts as not passing until the implementation runs it again.
 
 Implementations vendor these cases pinned by hash, so a case changes only through a reviewed edit here.
