@@ -1,12 +1,13 @@
 {
-  "website_commit": "90f595866eb226a25b4a946288ef673d343647d3",
+  "website_commit": "802ac532a79f968e7eee52ee6680dba8ff6d4374",
   "files": {
     ".github/workflows/ci.yml": "db13ecc01f5c9fb5fa5d45e83c6e7a2891686dae5e559569a58873fb232e8baf",
     ".github/workflows/release.yml": "65a2635a0dfd239ee35e996a52256b9318d6aefd8ee0b889917a82fbf60bae07",
+    "CHANGES.md": "16c23e331ef2c423e2ddaf58154a9531e00776f56b823fb2eeb8b1be36295aed",
     "LICENSE": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
     "NOTICE": "6ee4f6df4d823fb69f7eeb80a07cc5ffc216d34fa27bed4e8e26cfe8097044bd",
-    "README.md": "985bf8d1273a946f32c591f27b602dbb49a386037257a3a5dd648381546527de",
-    "SPEC.md": "769058cb860077bc420296b5674125c6fc6931914f6dfc432145601165b386c5",
+    "README.md": "ded1b32ddbfee93467eb781d86b7e0a8931641d4f35b34301f3bfb8f9fb09d92",
+    "SPEC.md": "6d6d8eafe17b23949cfc88b08643f31fa1130b32c6fc1b969bf5e64738d70bb8",
     "conformance/README.md": "24785c2a6682be7e388d09bc754538feb1729de6c3f539e9c685168615830b88",
     "conformance/cases/admission-reasons/case.json": "51f506b50fb36f72e8824848527f14e51616a4d350fe41ca6056f65299434e56",
     "conformance/cases/admission-reasons/expected.payload.txt": "06179cbc8206a76ab393bfab41e5b5eb4f3f0e7c15842b720fa45a1b34a7d695",

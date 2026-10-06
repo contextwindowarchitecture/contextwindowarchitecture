@@ -8,7 +8,8 @@ This repository holds the specification by itself: its text, its JSON Schemas, i
 
 | Path | Holds |
 | --- | --- |
-| [SPEC.md](SPEC.md) | The requirement index and sections 1 to 6: conformance, the model of planes, slots and items, governance, admission and fitting, placement profiles, and the trace. Each section carries its numbered requirements |
+| [SPEC.md](SPEC.md) | The normative text. The requirement index and sections 1 to 6: conformance, the model of planes, slots and items, governance, admission and fitting, placement profiles, and the trace. Each section carries its numbered requirements, and a closing section lists future work |
+| [CHANGES.md](CHANGES.md) | Every revision of the draft, newest first |
 | [schema/](schema) | JSON Schemas for an item, a producer batch, a conflict group, a placement profile, a route policy, a snapshot, a trace, a registry lock and a conformance report |
 | [contract/requirements.json](contract/requirements.json) | Every requirement as authored: its permanent ID, section, keyword, summary and text |
 | [contract/reasons.json](contract/reasons.json) | The exclusion and refusal reason codes a trace records, each with the requirement that owns it |
@@ -36,7 +37,7 @@ The specification is authored in the [website repository](https://github.com/con
 
 Releases here follow the website's. A tag is released only once its files match the website at the same tag, so watching this repository's releases is enough to follow the specification. While the specification is a draft, the `draft-release` tag moves to each new export.
 
-The [Spec page](https://contextwindowarchitecture.io/spec.html) is the normative text, and it carries the changelog of every revision. SPEC.md is generated from it.
+SPEC.md is the normative text, and the [Spec page](https://contextwindowarchitecture.io/spec.html) renders it. CHANGES.md lists every revision.
 
 To report a problem or propose a change, open an issue or pull request in the [website repository](https://github.com/contextwindowarchitecture/website).
 
