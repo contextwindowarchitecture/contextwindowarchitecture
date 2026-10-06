@@ -1,11 +1,11 @@
 {
-  "website_commit": "04a36e9e65d0e286723b514e35aa66cbb521a492",
+  "website_commit": "bded523fd94fb125a680e05c63690bb155e72ed4",
   "files": {
     ".github/workflows/ci.yml": "db13ecc01f5c9fb5fa5d45e83c6e7a2891686dae5e559569a58873fb232e8baf",
     ".github/workflows/release.yml": "65a2635a0dfd239ee35e996a52256b9318d6aefd8ee0b889917a82fbf60bae07",
     "LICENSE": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
     "NOTICE": "6ee4f6df4d823fb69f7eeb80a07cc5ffc216d34fa27bed4e8e26cfe8097044bd",
-    "README.md": "cec8efd922b465955866770ab0af6038b34238632b7124980aa6913e12f942ee",
+    "README.md": "05eb0cb54dd31b2398b33a7c776b831f6e1e00f461b5fecc723fabe021802aaf",
     "SPEC.md": "aa498868798bfe680f6751bf737d9ac9823ebe4c7f08e9cd0403f2688fb4e148",
     "conformance/README.md": "fde409266dcae7f18072cd57eb7e3234d1956c2eb859c88e34228430d0a58a7f",
     "conformance/cases/admission-reasons/case.json": "51f506b50fb36f72e8824848527f14e51616a4d350fe41ca6056f65299434e56",
@@ -291,6 +291,7 @@
     "examples/fixture-profile.json": "86b44a4194cbc9b7e8c7dd27e31faaff5e9872446d005b05a345e781f02bd4db",
     "examples/messages-payload.json": "b8e42c7b290b25bc8461ba76b85ba68b808a33c2d4684c7c3d82fe80b9ffde09",
     "examples/messages-snapshot.json": "dd294a2609cc2ca47ad866380ece6c5a433b0030c188a946ac58a4d5d8ebdea0",
+    "examples/messages-trace.json": "884251d40aa199ccc46eb645beaa8c866021698cf27cb086d3feadf431d5c99f",
     "examples/payload.txt": "4cf0b083e167bb952c1ba0f9a93bf3ed3c64b178c063c259b49cdace1b86972f",
     "examples/producer-batch.json": "12f97b05dead339aea4b2f23d2bac5a81fe0b53f995c77d44ab2875123bd19a7",
     "examples/profiles.json": "729a2831c8db98460f55b59982b55bf811731185f49a40ebcc0aa70fa33bf2e8",

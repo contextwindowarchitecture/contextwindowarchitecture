@@ -17,7 +17,7 @@ This repository holds the specification by itself: its text, its JSON Schemas, i
 | [conformance/cases/](conformance/cases) | Assembler test cases: a snapshot in, the expected trace and payload out |
 | [conformance/rejections/](conformance/rejections) | Snapshots that break exactly one snapshot check each; an assembler rejects them before assembly, with no trace (R-17) |
 | [conformance/registry/](conformance/registry) | The profiles and route policies the cases name, and the lock that pins them |
-| [examples/](examples) | An item, a producer batch, conflict groups, profiles and the route policies they name, a payload with its matching trace, and a message request with its snapshot |
+| [examples/](examples) | An item, a producer batch, conflict groups, profiles and the route policies they name, a payload with its matching trace, and a message request with its snapshot and trace |
 
 ## Where to start
 
