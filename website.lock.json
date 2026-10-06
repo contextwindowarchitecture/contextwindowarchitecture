@@ -1,11 +1,11 @@
 {
-  "website_commit": "bded523fd94fb125a680e05c63690bb155e72ed4",
+  "website_commit": "2d0982341ef494884675cf72db36c06e02df1d5e",
   "files": {
     ".github/workflows/ci.yml": "db13ecc01f5c9fb5fa5d45e83c6e7a2891686dae5e559569a58873fb232e8baf",
     ".github/workflows/release.yml": "65a2635a0dfd239ee35e996a52256b9318d6aefd8ee0b889917a82fbf60bae07",
     "LICENSE": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
     "NOTICE": "6ee4f6df4d823fb69f7eeb80a07cc5ffc216d34fa27bed4e8e26cfe8097044bd",
-    "README.md": "05eb0cb54dd31b2398b33a7c776b831f6e1e00f461b5fecc723fabe021802aaf",
+    "README.md": "985bf8d1273a946f32c591f27b602dbb49a386037257a3a5dd648381546527de",
     "SPEC.md": "aa498868798bfe680f6751bf737d9ac9823ebe4c7f08e9cd0403f2688fb4e148",
     "conformance/README.md": "fde409266dcae7f18072cd57eb7e3234d1956c2eb859c88e34228430d0a58a7f",
     "conformance/cases/admission-reasons/case.json": "51f506b50fb36f72e8824848527f14e51616a4d350fe41ca6056f65299434e56",
@@ -283,6 +283,7 @@
     "conformance/rejections/superseded-by-unknown/snapshot.json": "4f7eabc922b04c112ad8786785e2a291619b663b361356a972292e7cc2107afe",
     "conformance/rejections/unpaired-surrogate/case.json": "cf6f46233de822becd93340b6c4af019ebd6b8664c07f43f466ea444e1d09268",
     "conformance/rejections/unpaired-surrogate/snapshot.json": "d69e654715f43abc9b728d32accdca3e16459caeeb169834701935c980d79918",
+    "contract/model.json": "c5ac216b47a80288592e236c8c04c753f65bc9ee5e64f6bac58053110245e3e9",
     "contract/reasons.json": "43f26fd33c53851e7177263676a73e232df4964a1d421f655cbbc173df88fd9e",
     "contract/requirements.json": "b8b7a9fb675ca60a3fcc88ac78770efaf5f31180b1d5e1545c7645636f97db88",
     "contract/slot-defaults.json": "89e2f6636e081995615426f5f29e4f0933d851906b78c2d7955271a4109df60d",
