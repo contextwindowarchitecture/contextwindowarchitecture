@@ -15,6 +15,8 @@ This repository holds the specification by itself: its text, its JSON Schemas, i
 | [contract/reasons.json](contract/reasons.json) | The exclusion and refusal reason codes a trace records, each with the requirement that owns it |
 | [contract/slot-defaults.json](contract/slot-defaults.json) | Each slot's authority, protection tier and policy defaults, which an assembler fills in and traces (R-3) |
 | [contract/model.json](contract/model.json) | The planes, slots, item fields, authority values, conflict rules, pipeline stages and tests SPEC.md lists, in the order it lists them |
+| [contract/assembler-scope.json](contract/assembler-scope.json) | What an assembler can verify of each requirement by itself, and what rests on a producer or the application |
+| [guides/](guides) | How to build a producer, and how to use or build an assembler |
 | [conformance/README.md](conformance/README.md) | How to run a case, and every ordering, tie-break, boundary and algorithm step the requirements leave open (R-21) |
 | [conformance/cases/](conformance/cases) | Assembler test cases: a snapshot in, the expected trace and payload out |
 | [conformance/rejections/](conformance/rejections) | Snapshots that break exactly one snapshot check each; an assembler rejects them before assembly, with no trace (R-17) |
