@@ -1,7 +1,7 @@
 {
   "source": {
     "repository": "contextwindowarchitecture/assembler-go",
-    "commit": "13b44519570de6688d4907fd3d03bbe102577126",
+    "commit": "91a3ffcbca15952f86dfa15426333a91ce59a53a",
     "dirty": false,
     "tags": [
       "draft-release"
@@ -103,7 +103,7 @@
     },
     "contract": {
       "repository": "contextwindowarchitecture/website",
-      "commit": "4549cf7bc537a349d8cd0dc1a740a491f78965e0",
+      "commit": "7ef12765e79906a1cb95529cd93747c8a0389221",
       "dirty": false
     },
     "cases": [

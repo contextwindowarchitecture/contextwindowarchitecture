@@ -1,7 +1,7 @@
 {
   "source": {
     "repository": "contextwindowarchitecture/assembler-typescript",
-    "commit": "0d7eb5052803cf98d9a0449b5056b864ebc24e0d",
+    "commit": "b7a8940fa7c997a8b89f4dda4bbde92d90517f41",
     "dirty": false,
     "tags": [
       "draft-release"
@@ -103,7 +103,7 @@
     },
     "contract": {
       "repository": "contextwindowarchitecture/website",
-      "commit": "4549cf7bc537a349d8cd0dc1a740a491f78965e0",
+      "commit": "7ef12765e79906a1cb95529cd93747c8a0389221",
       "dirty": false
     },
     "cases": [

@@ -20,6 +20,7 @@ This repository holds the specification by itself: its text, its JSON Schemas, i
 | [conformance/README.md](conformance/README.md) | How to run a case, and every ordering, tie-break, boundary and algorithm step the requirements leave open (R-21) |
 | [conformance/cases/](conformance/cases) | Assembler test cases: a snapshot in, the expected trace and payload out |
 | [conformance/rejections/](conformance/rejections) | Snapshots that break exactly one snapshot check each; an assembler rejects them before assembly, with no trace (R-17) |
+| [conformance/check.py](conformance/check.py), [generators/](conformance/generators), [tests/](conformance/tests) | The contract's own checks, the generators that write the cases (`generators/all.py` runs them all), and the tests of the schemas and the import tool; [import_report.py](conformance/import_report.py) adds an implementation's report to implementations/ |
 | [conformance/registry/](conformance/registry) | The profiles and route policies the cases name, and the lock that pins them |
 | [implementations/](implementations) | Each listed implementation's conformance report as its own repository publishes it, with the commit it came from and the digests of the cases it ran |
 | [examples/](examples) | An item, a producer batch, conflict groups, profiles and the route policies they name, a payload with its matching trace, and a message request with its snapshot and trace |
