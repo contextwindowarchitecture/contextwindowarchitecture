@@ -1,8 +1,6 @@
-# A GitHub release for each tag, made once ci passes on the tagged commit against the website at the same tag, so
-# a tag here is released only when the website carries it and these files are the ones it publishes there. The
-# notes name the website commit the files were exported from and the draft's date. A tag that is not vX.Y.Z, such
-# as draft-release, is a prerelease. An existing tag is released by hand: gh workflow run release.yml -f tag=<tag>
-# The website writes this file too (scripts/export-spec.mjs).
+# A GitHub release for each tag, made once ci passes on the tagged commit. The notes give the draft's date and the
+# newest revision in CHANGES.md. A tag that is not vX.Y.Z, such as draft-release, is a prerelease. An existing tag is
+# released by hand: gh workflow run release.yml -f tag=<tag>
 name: release
 
 on:
@@ -23,7 +21,6 @@ jobs:
     uses: ./.github/workflows/ci.yml
     with:
       ref: refs/tags/${{ inputs.tag || github.ref_name }}
-      website_ref: refs/tags/${{ inputs.tag || github.ref_name }}
 
   release:
     name: GitHub release
@@ -38,12 +35,12 @@ jobs:
         with:
           ref: refs/tags/${{ env.TAG }}
       - run: |
-          commit=$(python3 -c 'import json; print(json.load(open("website.lock.json"))["website_commit"])')
-          draft=$(grep -oE '^Draft of [0-9]{4}-[0-9]{2}-[0-9]{2}' SPEC.md || true)
-          {
-            printf 'The specification as the website publishes it at its `%s` tag: SPEC.md, the JSON Schemas, the contract data, the conformance cases and the examples. Exported from website [`%s`](https://github.com/contextwindowarchitecture/website/commit/%s).\n\n' "$TAG" "${commit::7}" "$commit"
-            printf '%s. The Spec page carries the changelog of every revision: https://contextwindowarchitecture.io/spec.html#changelog\n' "${draft:-Draft}"
-          } > notes.md
+          python3 - > notes.md <<'PY'
+          import re
+          draft = re.search(r"^Draft of (\d{4}-\d{2}-\d{2})", open("SPEC.md", encoding="utf-8").read(), re.M)
+          heading, _, body = re.split(r"^## ", open("CHANGES.md", encoding="utf-8").read(), flags=re.M)[1].partition("\n")
+          print(f"Draft of {draft.group(1) if draft else 'unknown date'}. The newest revision, {heading.strip()}:\n\n{body.strip()}\n\nEvery revision is in CHANGES.md.")
+          PY
       - env:
           GH_TOKEN: ${{ github.token }}
         run: |

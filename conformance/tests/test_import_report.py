@@ -181,6 +181,21 @@ class Digest(unittest.TestCase):
         self.assertEqual(ir.digest(list(reversed(files))), want)
 
 
+class Verify(Temp):
+    def test_a_stored_report_is_the_one_its_repository_publishes_at_the_named_commit(self):
+        os.makedirs(os.path.join(self.dir, "remotes", "example"))
+        impl = self.repo("remotes/example/assembler-x")
+        report = {"implementation": {"name": "x", "version": "1"}, "contract": {"repository": "example/spec", "commit": "a" * 40, "dirty": False}, "cases": []}
+        write(os.path.join(impl, "conformance-report.json"), json.dumps(report, indent=2))
+        head = self.commit(impl)
+        entry = {"source": {"repository": "example/assembler-x", "commit": head, "dirty": False, "tags": []}, "cases_at_run": None, "report": report}
+        base = "file://" + os.path.join(self.dir, "remotes") + "/"
+        self.assertEqual(ir.verify_entry(entry, base), [])
+        self.assertTrue(ir.verify_entry({**entry, "report": {**report, "cases": [{"id": "a", "rules": ["R-1"], "outcome": "passed"}]}}, base), "a report the commit does not publish")
+        self.assertTrue(ir.verify_entry({**entry, "source": {**entry["source"], "commit": "b" * 40}}, base), "a commit the repository lacks")
+        self.assertTrue(ir.verify_entry({**entry, "source": {**entry["source"], "repository": "example/missing"}}, base), "a repository that does not exist")
+
+
 class Tally(unittest.TestCase):
     def test_a_case_changed_or_published_after_a_run_does_not_count_as_passing(self):
         published = {"a": "d1", "b": "d2", "c": "d3", "d": "d4"}

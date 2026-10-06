@@ -2,8 +2,8 @@
 illustrative route policies the example profiles name, and a lock pinning each by the digest
 conformance/README.md's Registry section defines.
 
-Implementations check that they compute the same digests. The website's tests recompute them in
-JavaScript, independently of this generator.
+Implementations check that they compute the same digests, and conformance/check.py checks the lock against the
+files it pins.
 """
 import hashlib, json, os, sys
 

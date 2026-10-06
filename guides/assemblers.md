@@ -179,17 +179,17 @@ let assembly = assemble(&snapshot_bytes)?; // Error::Rejected or Error::Unsuppor
 
 `assemble_with(&snapshot_bytes, &Options::new().tokenizer(id, count))` takes your own tokenizer under an ID no published tokenizer uses; a published ID is `Error::PublishedId`, and there is no option for a renderer. It takes the snapshot's bytes, not parsed JSON, so the I-JSON checks see the text as written.
 
-All four render examples/messages-snapshot.json to examples/messages-payload.json byte for byte, a `cwa-messages/v1` request the website's tests also derive from that snapshot, and emit examples/messages-trace.json as its trace, `trace_id` aside.
+All four render examples/messages-snapshot.json to examples/messages-payload.json byte for byte, a `cwa-messages/v1` request `conformance/check.py` also derives from that snapshot, and emit examples/messages-trace.json as its trace, `trace_id` aside.
 
 ## Building a new implementation
 
 Start from the template, https://github.com/contextwindowarchitecture/assembler-template, and follow its PORTING.md:
 
-1. Name the port with `scripts/init_port.py`, then vendor the contract from a website checkout with `scripts/vendor_contract.py --website ../website`. It copies the schemas, contract data, cases, rejections and registry into `vendor/cwa/`, each file pinned by SHA-256 with the website commit in `vendor/cwa.lock.json`.
+1. Name the port with `scripts/init_port.py`, then vendor the contract from a checkout of this repository with `scripts/vendor_contract.py --spec ../contextwindowarchitecture`. It copies the schemas, contract data, cases, rejections and registry into `vendor/cwa/`, each file pinned by SHA-256 with the commit in `vendor/cwa.lock.json`.
 2. Read conformance/README.md end to end, then contract/requirements.json, then the snapshot and trace schemas, then one case, `fixture-three-slot`, with its snapshot, trace and payload side by side. The requirements say what must happen; the README says how.
 3. Build test-first, in this order: strings and instants; canonical JSON and the digest; schemas and snapshot checks (every rejection case); tokenizers and renderers; admission and defaults; conflicts, supersession, deduplication and source diversity; refusals and fitting; the trace and the runner. Unit-test each README section's rules before letting its cases pass, and keep cases the port cannot pass yet in a `PENDING` set that only shrinks.
 4. Run the cases through a small adapter: `python3 scripts/conformance.py --command "<adapter>" --name <package> --version <version> --language <Language>`, then `python3 scripts/check_report.py`. The adapter reads one snapshot's raw bytes on stdin and exits 0 with `{"payload": <base64 or null>, "trace": <trace>}` on stdout for an assembly or a refusal, 2 with the problems on stderr for a rejection, and 3 for a tokenizer or renderer it does not provide.
-5. Commit the report with every change that alters it. The website's maintainers import it, and the Assembler page then counts, per requirement, the cases the port passes.
+5. Commit the report with every change that alters it. To list the port, import its report into a checkout of this repository with `conformance/import_report.py` and open a pull request (conformance/README.md, Reporting results); the Assembler page then counts, per requirement, the cases it passes.
 
 Build from the published contract alone, and never read another implementation's code. Two implementations that both pass every case and still disagree have found a gap in the spec, and the fix is a spec change with a case, made in the website first and vendored after.
 
@@ -208,7 +208,7 @@ It hands the payload to the model with each text in the platform role its render
 - Snapshot schema: [schema/snapshot.schema.json](../schema/snapshot.schema.json)
 - Trace schema: [schema/trace.schema.json](../schema/trace.schema.json)
 - Conformance report schema: [schema/conformance_report.schema.json](../schema/conformance_report.schema.json)
-- Cases and rejections: https://github.com/contextwindowarchitecture/website/tree/main/conformance
+- Cases and rejections: https://github.com/contextwindowarchitecture/contextwindowarchitecture/tree/main/conformance
 - Assembler page, reports and matrix: https://contextwindowarchitecture.io/assembler.html
 - Integration sketch: https://contextwindowarchitecture.io/site/assembly-sketch.txt
 - The whole contract in one file: https://contextwindowarchitecture.io/llms-full.txt

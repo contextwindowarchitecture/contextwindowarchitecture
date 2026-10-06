@@ -1,0 +1,18 @@
+name: A change to the specification
+description: Propose or report a change to SPEC.md, a schema, the contract data or conformance/README.md.
+labels: ["spec"]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What should change
+      description: Name the requirement (R-n), schema, reason code or README section, and what it says now.
+    validations:
+      required: true
+  - type: textarea
+    id: why
+    attributes:
+      label: Why
+      description: What goes wrong as it stands. A snapshot or trace that shows it helps most.
+    validations:
+      required: true

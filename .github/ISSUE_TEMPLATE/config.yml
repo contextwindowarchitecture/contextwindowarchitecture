@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: A question
+    url: https://github.com/contextwindowarchitecture/contextwindowarchitecture/discussions
+    about: Ask in Discussions; issues are for problems and proposed changes.
+  - name: A problem with the website
+    url: https://github.com/contextwindowarchitecture/website/issues
+    about: The pages, tools and guides as the site presents them. The specification itself is here.

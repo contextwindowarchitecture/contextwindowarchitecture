@@ -1,7 +1,7 @@
-# This repository's files against the website: each is the file the website publishes there, none is missing, and
-# none has been added beside them. A push is checked against the website commit the lock names. A tag runs it
-# through release.yml, against the website at the same tag. The website writes this file too
-# (scripts/export-spec.mjs).
+# The specification's own checks, in Python only: check.py, the unittest suite (the schemas held to their rules, the
+# import tool, and every case regenerated with no difference), nothing derived left stale, and each listed report the
+# one its implementation's repository publishes. A pull request also needs every commit signed off (CONTRIBUTING.md).
+# A tag runs it through release.yml, on the tagged commit.
 name: ci
 
 on:
@@ -14,32 +14,57 @@ on:
         description: The commit to check; release.yml passes the tag
         type: string
         default: ""
-      website_ref:
-        description: The website ref to check against; release.yml passes the same tag
-        type: string
-        default: ""
 
 permissions:
   contents: read
 
 jobs:
-  export:
-    name: files match the website
+  check:
+    name: check.py and tests
+    runs-on: ubuntu-latest
+    steps:
+      # The whole history: check.py reads each listed report's cases as they were at the commit it ran against.
+      - uses: actions/checkout@v5
+        with:
+          ref: ${{ inputs.ref }}
+          fetch-depth: 0
+      - uses: astral-sh/setup-uv@v6
+      - run: uv run python conformance/check.py
+      - run: uv run python -m unittest discover -s conformance/tests
+        env:
+          PYTHONDONTWRITEBYTECODE: "1"
+      - name: nothing derived from the contract files is stale
+        run: |
+          uv run python conformance/check.py --write
+          git diff --exit-code
+
+  registry:
+    name: listed reports are the ones published
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
         with:
           ref: ${{ inputs.ref }}
-      - id: lock
-        run: echo "commit=$(python3 -c 'import json; print(json.load(open("website.lock.json"))["website_commit"])')" >> "$GITHUB_OUTPUT"
-      # The commit or tag must be pushed to the website repository for this checkout to find it.
+      - uses: astral-sh/setup-uv@v6
+      - run: uv run python conformance/import_report.py --verify
+
+  signoff:
+    name: every commit signed off
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
       - uses: actions/checkout@v5
         with:
-          repository: contextwindowarchitecture/website
-          ref: ${{ inputs.website_ref || steps.lock.outputs.commit }}
-          path: website
-      - uses: actions/setup-node@v4
-        with:
-          node-version: "24"
-      - run: node scripts/export-spec.mjs .. --check
-        working-directory: website
+          fetch-depth: 0
+      # The Developer Certificate of Origin (https://developercertificate.org): each commit carries a Signed-off-by
+      # line for its author's email.
+      - run: |
+          missing=0
+          for commit in $(git rev-list --no-merges "${{ github.event.pull_request.base.sha }}..${{ github.event.pull_request.head.sha }}"); do
+            email=$(git log -1 --format=%ae "$commit")
+            if ! git log -1 --format=%B "$commit" | grep -qiE "^Signed-off-by: .+ <${email//./\\.}>\$"; then
+              echo "::error::$(git log -1 --format='%h %s' "$commit") has no Signed-off-by for $email"
+              missing=1
+            fi
+          done
+          exit $missing

@@ -1,0 +1,18 @@
+name: A problem with a conformance case
+description: A case or rejection whose expected trace or payload looks wrong, or that two implementations read differently.
+labels: ["conformance"]
+body:
+  - type: input
+    id: case
+    attributes:
+      label: The case
+      description: Its directory under conformance/cases or conformance/rejections.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What it expects, and what you think it should
+      description: Cite the requirement or the conformance/README.md section that decides it.
+    validations:
+      required: true

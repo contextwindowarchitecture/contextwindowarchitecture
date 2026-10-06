@@ -2,6 +2,7 @@
 """Adds an implementation's conformance run to implementations/, or refreshes it.
 
     python3 conformance/import_report.py <checkout> <id> [--label <Language>] [--status]
+    python3 conformance/import_report.py --verify [<id> ...]
 
 The checkout is the implementation's own repository, clean, holding the conformance-report.json it publishes. The import
 stores that report untouched in implementations/<id>.json, beside its source (the checkout's repository, commit and tags)
@@ -11,6 +12,10 @@ status.json claims, in implementations/<id>.status.json. A new id needs --label,
 
 It refuses a checkout with uncommitted changes, a report that is not valid against the report schema of the commit it ran
 against, and a report whose commit this repository's history does not hold, since its cases could not be read back.
+--verify fetches each listed implementation's repository and confirms that the stored report is the
+conformance-report.json it publishes at the stored commit; a report is the implementation's own claim (SPEC.md §1),
+and this shows the registry holds that claim as made. It needs network access to GitHub.
+
 Needs the jsonschema package, as check.py does.
 """
 import argparse, hashlib, json, os, re, subprocess, sys
@@ -162,12 +167,37 @@ def read_json(path):
     with open(path, encoding="utf-8") as f: return json.load(f)
 
 
+def verify_entry(entry, base="https://github.com/"):
+    """What differs between a stored report and the conformance-report.json its repository holds at the stored
+    commit; empty when they are the same document. base is where repositories are fetched from."""
+    import tempfile
+    repository, commit = entry["source"]["repository"], entry["source"]["commit"]
+    with tempfile.TemporaryDirectory(prefix="cwa-verify-") as clone:
+        if subprocess.run(["git", "clone", "-q", "--filter=blob:none", "--no-checkout", f"{base}{repository}", clone], capture_output=True).returncode:
+            return [f"{repository} could not be fetched from {base}"]
+        if subprocess.run(["git", "-C", clone, "cat-file", "-e", f"{commit}^{{commit}}"], capture_output=True).returncode:
+            return [f"{repository} does not hold commit {commit[:7]}; push it first"]
+        try: published = json.loads(git(clone, "show", f"{commit}:conformance-report.json"))
+        except subprocess.CalledProcessError: return [f"{repository} has no conformance-report.json at {commit[:7]}"]
+    return [] if published == entry["report"] else [f"{repository} publishes a different conformance-report.json at {commit[:7]}"]
+
+
 def write_json(path, value):
     with open(path, "w", encoding="utf-8") as f: f.write(json.dumps(value, indent=2, ensure_ascii=False) + "\n")
 
 
 def main(argv=None, root=ROOT):
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
+    if argv is None: argv = sys.argv[1:]
+    if argv[:1] == ["--verify"]:
+        index = read_json(os.path.join(root, "implementations", "index.json"))
+        ids = argv[1:] or [i["id"] for i in index]
+        failed = False
+        for i in ids:
+            problems = verify_entry(read_json(os.path.join(root, "implementations", f"{i}.json")))
+            failed = failed or bool(problems)
+            print(f"{i}: " + ("; ".join(problems) if problems else "the stored report is the one its repository publishes at that commit"))
+        sys.exit(1 if failed else 0)
     ap.add_argument("checkout"); ap.add_argument("id")
     ap.add_argument("--label", help="the name the Assembler page gives a new implementation, such as its language")
     ap.add_argument("--status", action="store_true", help="also store the checkout's status.json claims")

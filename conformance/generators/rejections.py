@@ -2,8 +2,8 @@
 or their schemas. A conformant assembler rejects each before assembly, with no payload and no trace (R-17).
 
 Each case changes fixture-three-slot's snapshot in one place, or messages-render's or blocks-render's for the
-cwa-messages/v1 and cwa-message-blocks/v1 rules. The website's tests check each with contract.js's checkSnapshot, which must find exactly one
-problem, independently of this generator.
+cwa-messages/v1 and cwa-message-blocks/v1 rules. conformance/check.py, written apart from this generator, checks
+that each breaks exactly one Snapshot check, and every case none.
 """
 import copy, json, os, shutil, sys
 

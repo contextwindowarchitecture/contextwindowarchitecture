@@ -1,0 +1,16 @@
+# The two packages conformance/check.py and conformance/tests need, so that one command checks a change:
+#   uv run python conformance/check.py
+# The generators and conformance/generators/all.py need only the standard library.
+[project]
+name = "contextwindowarchitecture-specification"
+version = "0.0.0"
+description = "Context Window Architecture: the specification's own checks"
+requires-python = ">=3.11"
+license = "Apache-2.0"
+dependencies = [
+  "jsonschema>=4.18",
+  "rfc3339-validator>=0.1.4",
+]
+
+[tool.uv]
+package = false

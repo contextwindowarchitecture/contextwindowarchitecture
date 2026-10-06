@@ -33,17 +33,27 @@ This repository holds the specification by itself: its text, its JSON Schemas, i
 
 ## Implementations
 
-Assemblers in [Python](https://github.com/contextwindowarchitecture/assembler-python), [TypeScript](https://github.com/contextwindowarchitecture/assembler-typescript), [Go](https://github.com/contextwindowarchitecture/assembler-go) and [Rust](https://github.com/contextwindowarchitecture/assembler-rust) implement the specification. The [Assembler page](https://contextwindowarchitecture.io/assembler.html) shows the conformance report each one publishes against these cases.
+Assemblers in [Python](https://github.com/contextwindowarchitecture/assembler-python), [TypeScript](https://github.com/contextwindowarchitecture/assembler-typescript), [Go](https://github.com/contextwindowarchitecture/assembler-go) and [Rust](https://github.com/contextwindowarchitecture/assembler-rust) implement the specification. [implementations/](implementations) holds the conformance report each one publishes, and the [Assembler page](https://contextwindowarchitecture.io/assembler.html) counts each against these cases. To list another, see Reporting results in [conformance/README.md](conformance/README.md).
 
-## Where these files come from
+## How this repository is maintained
 
-The specification is authored in the [website repository](https://github.com/contextwindowarchitecture/website), and every file here is written from it: nothing is edited in this repository. Each file under the paths above is a byte-for-byte copy of the website's file at the same path. [website.lock.json](website.lock.json) names the website commit the copy was taken at and the SHA-256 of every file, and this repository's CI checks the files against that commit.
+The specification is written here. [contextwindowarchitecture.io](https://contextwindowarchitecture.io), the assemblers and the demo each copy these files at a commit they pin, so a change reaches them when they take the new commit.
 
-Releases here follow the website's. A tag is released only once its files match the website at the same tag, so watching this repository's releases is enough to follow the specification. While the specification is a draft, the `draft-release` tag moves to each new export.
+While the specification is a draft, the `draft-release` tag moves with each change, and each tag is released once its checks pass. Watching this repository's releases is enough to follow the specification.
 
-SPEC.md is the normative text, and the [Spec page](https://contextwindowarchitecture.io/spec.html) renders it. CHANGES.md lists every revision.
+## Contributing
 
-To report a problem or propose a change, open an issue or pull request in the [website repository](https://github.com/contextwindowarchitecture/website).
+Ask a question in [Discussions](https://github.com/contextwindowarchitecture/contextwindowarchitecture/discussions). Report a problem with the text, a schema or a case as an issue. To propose a change, open a pull request; [CONTRIBUTING.md](CONTRIBUTING.md) says what one needs.
+
+Checking a change takes Python 3.11 or newer and nothing else from this project:
+
+```sh
+uv run python conformance/check.py          # verify
+uv run python conformance/check.py --write  # rewrite what is derived from the contract files
+uv run python -m unittest discover -s conformance/tests
+```
+
+Files in this repository before 2026-10-05 were written in the [website repository](https://github.com/contextwindowarchitecture/website); their earlier history is there, up to commit `d6875d3`.
 
 ## License
 
