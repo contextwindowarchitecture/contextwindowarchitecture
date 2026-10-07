@@ -3,7 +3,9 @@
     "repository": "contextwindowarchitecture/assembler-python",
     "commit": "2b1c3e4d5a445aa58c4eea9c674e3978b08c8c87",
     "dirty": false,
-    "tags": []
+    "tags": [
+      "draft-release"
+    ]
   },
   "cases_at_run": {
     "admission-reasons": "87f98ed34474c56823be571b5da14ea1150c37ecd2efad0475d0fef7d232c28b",
