@@ -31,7 +31,9 @@ def jcs(value):
         value = float(value)  # RFC 8785 numbers are doubles; beyond 2^53 an integer rounds as JavaScript rounds it
     if isinstance(value, float):
         assert math.isfinite(value)
-        if value == int(value) and abs(value) < 1e21:
+        # Up to 2^53 a whole double's exact value is its shortest digits. Beyond, ECMAScript writes the shortest
+        # round-trip digits and pads with zeros: 12345678901234567168.0 is 12345678901234567000.
+        if value == int(value) and abs(value) <= 2 ** 53:
             return str(int(value))
         return es_number(value)
     if isinstance(value, str):

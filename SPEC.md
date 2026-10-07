@@ -1,6 +1,6 @@
 # Context Window Architecture: specification
 
-Draft of 2026-10-05, not yet stable. Requirements are numbered from R-1; new ones append, and numbers are permanent and never reused.
+Draft of 2026-10-06, not yet stable. Requirements are numbered from R-1; new ones append, and numbers are permanent and never reused.
 
 This file is the normative text of the specification. The [Spec page](https://contextwindowarchitecture.io/spec.html) renders it; where the page differs from this file, this file holds. [CHANGES.md](CHANGES.md) lists every revision.
 

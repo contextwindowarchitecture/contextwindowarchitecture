@@ -109,9 +109,9 @@ Each is a place where languages disagree. Most have a published case written to 
 - "Blank" and the whitespace tokenizer use the ECMAScript whitespace set, spelled out. Python's `\s` and `\S` differ at U+001C to U+001F and U+FEFF (Blank strings; `admission-reasons`).
 - The schemas' patterns need ECMAScript regex semantics: `\uXXXX` escapes and the `(?![\s\S])` end anchor. RE2-style engines, such as Go's `regexp`, reject both.
 - Assert `format: date-time`: the pattern pins the shape but not the calendar, and `admission-reasons` holds `2026-02-30` as `invalid_structure`. Compare instants at full precision, with a fraction of any length and no leap seconds (Timestamps).
-- Read every number as the nearest IEEE 754 double before comparing it, so integers beyond 2^53 may tie, and reject a number outside the double range rather than crash (Numbers; `threshold-beyond-2-53`, rejection `number-out-of-range`).
+- Read every number as the nearest IEEE 754 double before comparing it, so integers beyond 2^53 may tie, and reject a number outside the double range rather than crash (Numbers; `threshold-beyond-2-53`, `digest-beyond-2-53`, rejection `number-out-of-range`).
 - Reject an unpaired surrogate from the raw text. Some JSON parsers, Go's `encoding/json` among them, silently replace it with U+FFFD (rejection `unpaired-surrogate`).
-- Serialize with RFC 8785, ECMAScript number formatting included, for the snapshot digest, the order of rows sharing an id, and the `cwa-messages/v1` payload (Snapshot digest).
+- Serialize with RFC 8785, ECMAScript number formatting included, for the snapshot digest, the order of rows sharing an id, and the `cwa-messages/v1` payload (Snapshot digest). Beyond 2^53 a whole double is written with its shortest round-trip digits padded with zeros, not its exact value (`digest-beyond-2-53`).
 - Compare deduplication keys code unit for code unit: no Unicode normalization and no case folding (Deduplication; `dedupe-exact`).
 - Every reduction under budget pressure is its own fit test over the whole rendered payload, and an implementation may reach the same decisions faster but never different ones (Fitting).
 - Look up tokenizer, renderer and producer IDs as own keys only: a schema-valid snapshot can name `toString` or `__proto__`.

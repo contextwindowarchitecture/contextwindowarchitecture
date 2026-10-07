@@ -4,6 +4,12 @@ Every revision of the Context Window Architecture specification while it is a dr
 
 **Draft history.** The 2026-09-22 revision separated instruction authority from factual precedence; made freshness, producer exclusions, refusal traces, clock snapshots, token accounting, and draft evaluation status explicit; and published executable JSON contracts and shared validators. Example profiles are all unevaluated. Changelog entries older than that revision describe superseded draft behavior.
 
+## 2026-10-06 · digests of numbers beyond 2^53
+
+- generators/digest.py wrote a whole double beyond 2^53 as its exact value, where RFC 8785 writes ECMAScript's shortest round-trip digits padded with zeros: 12345678901234567890 came out as 12345678901234567168 rather than 12345678901234567000. The conformance README's Snapshot digest already said the second, and the Python, TypeScript, Go and Rust assemblers already computed it; only the generator departed, and no published case held such a number, so every published digest is unchanged. It now writes such a double as ECMAScript does, and a test holds it to JavaScript's output.
+- Conformance corpus: the new digest-beyond-2-53 case holds scores of more than 17 significant digits, as integers and as a fraction with an exponent, which round to the same double as min_relevance and pass, and one that rounds to the double below and is below_threshold. A digest that writes the exact value fails it. Implementations count it as not run until they run it. No requirement changes.
+- Fixes contextwindowarchitecture/contextwindowarchitecture#3.
+
 ## 2026-10-05 · reports name their repository
 
 - Conformance report: the contract member names the repository the cases came from as well as the commit, as {repository, commit, dirty}, in place of website_commit. The cases come from contextwindowarchitecture/website today; once the specification repository holds them, reports name that repository and the schema stays as it is. A report written in the old shape is read against the report schema of the commit it ran against, as its cases already are, so it keeps counting until its implementation runs again.
