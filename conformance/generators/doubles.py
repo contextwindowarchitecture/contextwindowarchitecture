@@ -54,7 +54,7 @@ profile = {"spec": "cwa/draft", "id": "numbers-fixture", "version": 1, "route": 
            "route_policy_version": "numbers/v1", "placement": [{"slot": s, "wrap": "xml:" + s} for s in placement],
            "evaluation": {"status": "unevaluated", "suite": None, "date": None, "result": None, "artifact": None}}
 
-WS = re.compile(r"[^\t\n\v\f\r    -     　﻿]+")
+WS = re.compile(r"[^\t\n\v\f\r \u00a0\u1680\u2000-\u200a\u2028\u2029\u202f\u205f\u3000\ufeff]+")
 esc = lambda s: s.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
 
 def render(items):

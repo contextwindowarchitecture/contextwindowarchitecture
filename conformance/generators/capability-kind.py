@@ -61,7 +61,7 @@ snapshot = {
 admitted = [it for _, _, it, intent in ROWS if intent == "admit"]
 excluded = sorted(((p, it["id"], intent, it["slot"]) for p, _, it, intent in ROWS if intent != "admit"), key=lambda r: (U16(r[0]), U16(r[1])))
 
-WS = re.compile(r"[^\t\n\v\f\r    -     　﻿]+")
+WS = re.compile(r"[^\t\n\v\f\r \u00a0\u1680\u2000-\u200a\u2028\u2029\u202f\u205f\u3000\ufeff]+")
 esc = lambda s: s.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
 parts, included = [], []
 for slot in placement:

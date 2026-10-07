@@ -214,7 +214,7 @@ for producer, it, intent in ROWS:
 excluded.sort(key=lambda r: (U16(r[0]), U16(r[1]), r[4]))
 row = lambda rid, r, slot: {"item_id": rid, "reason": r, "stage": "assembler", **({"slot": slot} if isinstance(slot, str) and slot in DEFAULTS else {})}
 
-WS = re.compile(r"[^\t\n\v\f\r    -     　﻿]+")
+WS = re.compile(r"[^\t\n\v\f\r \u00a0\u1680\u2000-\u200a\u2028\u2029\u202f\u205f\u3000\ufeff]+")
 esc = lambda s: s.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
 parts, included = [], []
 for slot in placement:
