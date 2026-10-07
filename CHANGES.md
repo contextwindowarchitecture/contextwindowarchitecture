@@ -9,6 +9,7 @@ Every revision of the Context Window Architecture specification while it is a dr
 - generators/digest.py wrote a whole double beyond 2^53 as its exact value, where RFC 8785 writes ECMAScript's shortest round-trip digits padded with zeros: 12345678901234567890 came out as 12345678901234567168 rather than 12345678901234567000. The conformance README's Snapshot digest already said the second, and the Python, TypeScript, Go and Rust assemblers already computed it; only the generator departed, and no published case held such a number, so every published digest is unchanged. It now writes such a double as ECMAScript does, and a test holds it to JavaScript's output.
 - Conformance corpus: the new digest-beyond-2-53 case holds scores of more than 17 significant digits, as integers and as a fraction with an exponent, which round to the same double as min_relevance and pass, and one that rounds to the double below and is below_threshold. A digest that writes the exact value fails it. Implementations count it as not run until they run it. No requirement changes.
 - Fixes contextwindowarchitecture/contextwindowarchitecture#3.
+- Implementations: the Python, TypeScript, Go and Rust assemblers vendored this revision with no code change, each passing 62 cases, digest-beyond-2-53 included, and rejecting 25 rejections.
 
 ## 2026-10-05 · reports name their repository
 
