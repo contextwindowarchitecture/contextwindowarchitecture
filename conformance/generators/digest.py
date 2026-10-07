@@ -3,7 +3,7 @@ take the SHA-256 of the RFC 8785 serialization. Imported by the generators; run 
 prints the digest of each case's snapshot.json."""
 import copy, decimal, hashlib, json, math, os, re, sys
 
-NONBLANK = re.compile(r"[^\t\n\v\f\r    -     　﻿]")
+NONBLANK = re.compile(r"[^\t\n\v\f\r \u00a0\u1680\u2000-\u200a\u2028\u2029\u202f\u205f\u3000\ufeff]")
 U16 = lambda s: s.encode("utf-16-be")
 
 

@@ -33,7 +33,7 @@ KINDS = {"policy-registry": "policy", "state-svc": "state", "policy-corpus": "re
          "memory-svc": "memory", "conversation": "interaction"}
 T = "2026-09-22T12:00:00Z"
 SCOPE = {"tenant": "acme", "user": "u_91", "session": "s_7", "task": "refund_request"}
-WS = re.compile(r"[^\t\n\v\f\r    -     　﻿]+")
+WS = re.compile(r"[^\t\n\v\f\r \u00a0\u1680\u2000-\u200a\u2028\u2029\u202f\u205f\u3000\ufeff]+")
 count = lambda text: len(WS.findall(text))
 # conformance/README.md, Tokenizers and renderers.
 TOKENIZERS = {"fixture-whitespace/v1": count, "estimate-utf8/v1": lambda text: (len(text.encode("utf-8")) + 3) // 4}
