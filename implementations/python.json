@@ -1,11 +1,9 @@
 {
   "source": {
     "repository": "contextwindowarchitecture/assembler-python",
-    "commit": "dfd4a4a8930bb959df6d89d889c26f575d796e87",
+    "commit": "2b1c3e4d5a445aa58c4eea9c674e3978b08c8c87",
     "dirty": false,
-    "tags": [
-      "draft-release"
-    ]
+    "tags": []
   },
   "cases_at_run": {
     "admission-reasons": "87f98ed34474c56823be571b5da14ea1150c37ecd2efad0475d0fef7d232c28b",
@@ -41,6 +39,7 @@
     "dedupe-exact": "d5929f6d5d4b187d959c40541f13641e18c530c37733ec5f7d4666d298ceb34f",
     "dedupe-exemptions": "2bc142b8846f5f91ee2443b6c81496eaad7910a9fa46b4302bf746d408d5272d",
     "dedupe-producer-reported": "c7dec64e9c3363aea9e09e430b12fd7c2bb084335c0282221bde3b008a5eca65",
+    "digest-beyond-2-53": "10b15320989fbcd701b48466b4c62114c1c362190079fd081750dbefd329139c",
     "diversity-cap": "0c25ba62488ea2ea54fad516be2f6545cf0f1db5bd42353d42b244de91eaf072",
     "diversity-evidence-required": "6b6dba1f02c206a63b93c0c9107adcb64ed8014cf8ff07522067d733f403f1f8",
     "diversity-exemptions": "bde122fd8b34790717526eeb5b7aeab5217fc98e2c8d168f085a9d870784935a",
@@ -103,7 +102,7 @@
     },
     "contract": {
       "repository": "contextwindowarchitecture/contextwindowarchitecture",
-      "commit": "161ed75c318b7e8cb5ebc3f4deb379b98381fa37",
+      "commit": "359bdabf4b7b5657a59ea7801bf98b4192e9e4cf",
       "dirty": false
     },
     "cases": [
@@ -427,6 +426,15 @@
           "R-21",
           "R-22",
           "R-24"
+        ],
+        "outcome": "passed"
+      },
+      {
+        "id": "digest-beyond-2-53",
+        "rules": [
+          "R-2",
+          "R-13",
+          "R-22"
         ],
         "outcome": "passed"
       },
