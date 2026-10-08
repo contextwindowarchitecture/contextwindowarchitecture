@@ -1,14 +1,14 @@
 {
   "source": {
     "repository": "contextwindowarchitecture/assembler-python",
-    "commit": "2b1c3e4d5a445aa58c4eea9c674e3978b08c8c87",
+    "commit": "31f82710fdfb766b06f194b9224e26670d10c07c",
     "dirty": false,
     "tags": [
       "draft-release"
     ]
   },
   "cases_at_run": {
-    "admission-reasons": "87f98ed34474c56823be571b5da14ea1150c37ecd2efad0475d0fef7d232c28b",
+    "admission-reasons": "688bb6caba8e4bafe675ac359a44f6aaf32beefea594cd51d906f0ae8800da29",
     "admission-route-slots": "06fa69f4ee9f03a74fa0148f18dcbb12af82995ac4f7f8588e48a0e0c060bc3d",
     "blocks-budget": "6836eb20e3ac31b69abd94069081c2bc9c1debea6b7e53f237627aaf1945ba22",
     "blocks-render": "ae2213691c3b978d4e79f7ccc6caa819bab08135d610ee664b13da9acf785db7",
@@ -45,6 +45,8 @@
     "diversity-cap": "0c25ba62488ea2ea54fad516be2f6545cf0f1db5bd42353d42b244de91eaf072",
     "diversity-evidence-required": "6b6dba1f02c206a63b93c0c9107adcb64ed8014cf8ff07522067d733f403f1f8",
     "diversity-exemptions": "bde122fd8b34790717526eeb5b7aeab5217fc98e2c8d168f085a9d870784935a",
+    "doubles-largest": "52e2f421fd7fb621edd0bf0873a963a89251a6c151a6a16482017124855b9b33",
+    "doubles-nearest": "2f8e27ee8832b4bb716459eda7bc76f586e8f17e2607afedaf67e470b77ebc40",
     "evidence-cap-omitted": "04d4a775a051feac64d7f2bcfe5cbac7760bc1d8d528eb3b5700179e2f627718",
     "evidence-min-included-items": "a5605c49b0176926e5026e5cc5c12cb570e3cbf662a8f79df37b91c91bd3d059",
     "evidence-precompute-summary": "acb6b38da8fd1c1039548c6dec36e5a30773f429a97813f66380c3176daa272a",
@@ -52,6 +54,7 @@
     "evidence-retrieve-narrower": "5caa27762479affe6b5c88e6ad1cc39156e824c00ddf9c6e2b5b8e0e954075cf",
     "fixture-three-slot": "9aaf68239e4fdbb61ffe30903cab49f18abdaaab26bdaad44b40adb77e221d6b",
     "history-freshness-order": "b95f486069f308649f11ac119df48ed17f57cfe3cad57a29c49df97c0bdb25e4",
+    "integer-written-as-double": "f87e6668087ed743b1deedc43c13166b65de48ba88214fcbef860e6868361fa1",
     "messages-budget": "9b73d41ac98df2bed0eab01cb3ce0432e003f39e8c323ed0faca13fe8f5020f2",
     "messages-render": "137c0b6f024d9694e889c18a58b820012f161e41937230671466cc87124d9aed",
     "messages-repeated-slot": "f913b30648e0cde677f84d826fd878548acc82c9851ee58a4af8e8a1cb7d2509",
@@ -104,7 +107,7 @@
     },
     "contract": {
       "repository": "contextwindowarchitecture/contextwindowarchitecture",
-      "commit": "359bdabf4b7b5657a59ea7801bf98b4192e9e4cf",
+      "commit": "c252494af79720d23c95d54c0cf9c638d3e43557",
       "dirty": false
     },
     "cases": [
@@ -476,6 +479,25 @@
         "outcome": "passed"
       },
       {
+        "id": "doubles-largest",
+        "rules": [
+          "R-2",
+          "R-13",
+          "R-17",
+          "R-22"
+        ],
+        "outcome": "passed"
+      },
+      {
+        "id": "doubles-nearest",
+        "rules": [
+          "R-2",
+          "R-13",
+          "R-22"
+        ],
+        "outcome": "passed"
+      },
+      {
         "id": "evidence-cap-omitted",
         "rules": [
           "R-12",
@@ -541,6 +563,14 @@
         "id": "history-freshness-order",
         "rules": [
           "R-7"
+        ],
+        "outcome": "passed"
+      },
+      {
+        "id": "integer-written-as-double",
+        "rules": [
+          "R-2",
+          "R-26"
         ],
         "outcome": "passed"
       },
