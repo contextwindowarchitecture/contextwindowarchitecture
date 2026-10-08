@@ -4,6 +4,14 @@ Every revision of the Context Window Architecture specification while it is a dr
 
 **Draft history.** The 2026-09-22 revision separated instruction authority from factual precedence; made freshness, producer exclusions, refusal traces, clock snapshots, token accounting, and draft evaluation status explicit; and published executable JSON contracts and shared validators. Example profiles are all unevaluated. Changelog entries older than that revision describe superseded draft behavior.
 
+## 2026-10-07 · numbers however they are written
+
+- Conformance corpus: three new cases and one changed. All four listed assemblers passed every published case, while generated inputs found a defect in three of them that no case reached. The conformance README already decides each, so no requirement changes. The README's Numbers section and its defaults_filled rule now name the cases.
+- doubles-nearest writes scores near 2^53 with fractions and exponents, including halfway values that round to even, and doubles-largest writes the largest double as 1797693134862315700E290 and as 1.7976931348623158e308, which rounds to it rather than out of range. Each must be read as the nearest double, which a parser that is not correctly rounded misses.
+- integer-written-as-double repeats diversity-cap with max_per_source written 2.0. That is the same double as 2, which JSON Schema also counts as an integer, so the case has diversity-cap's decisions and payload. generators/conflicts.py now reads the cap as an integer, so it builds this case too.
+- admission-reasons: two candidates excluded with duplicate_item_id now leave lineage to the slot default, so defaults_filled lists them (R-3: it covers items later excluded). Its snapshot, trace and digest change; its payload does not.
+- Implementations count the three new cases, and admission-reasons, as not run until they run them again. Fixes contextwindowarchitecture/contextwindowarchitecture#7; see contextwindowarchitecture/assembler-go#1, contextwindowarchitecture/assembler-python#1 and contextwindowarchitecture/assembler-rust#1.
+
 ## 2026-10-06 · digests of numbers beyond 2^53
 
 - generators/digest.py wrote a whole double beyond 2^53 as its exact value, where RFC 8785 writes ECMAScript's shortest round-trip digits padded with zeros: 12345678901234567890 came out as 12345678901234567168 rather than 12345678901234567000. The conformance README's Snapshot digest already said the second, and the Python, TypeScript, Go and Rust assemblers already computed it; only the generator departed, and no published case held such a number, so every published digest is unchanged. It now writes such a double as ECMAScript does, and a test holds it to JavaScript's output.

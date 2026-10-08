@@ -1,4 +1,5 @@
-"""Builds conformance/cases/threshold-beyond-2-53 and digest-beyond-2-53 from tables of intended outcomes.
+"""Builds conformance/cases/threshold-beyond-2-53, digest-beyond-2-53, doubles-nearest and doubles-largest from tables of
+intended outcomes.
 
 Every number in a snapshot is a double (R-2; conformance/README.md, Numbers). In threshold-beyond-2-53, with
 min_relevance 9007199254740993, which rounds to 2^53, a score of 9007199254740992 is equal and passes,
@@ -7,7 +8,10 @@ the tied item with the later id is omitted first. In digest-beyond-2-53 the numb
 digits: 12345678901234567890, 12345678901234566500 and 1.2345678901234567e+19 are all the double 12345678901234567168,
 which RFC 8785 writes as 12345678901234567000, its threshold, so all three pass, and 12345678901234566000 is the double
 below and below_threshold. Its snapshot digest is what a digest that wrote each double's exact value would miss
-(Snapshot digest). Expected results come from the INTENT column and the omissions, not from admission or fitting logic,
+(Snapshot digest). doubles-nearest and doubles-largest write their numbers with fractions and exponents, in forms only a
+correctly rounded parser reads as the nearest double: 9007199254740993.0 is halfway between 2^53 and the double above and
+rounds to even, 2^53, and 1.7976931348623158e308 is within half a step of the largest double and rounds to it rather than
+out of range. Expected results come from the INTENT column and the omissions, not from admission or fitting logic,
 so a case can fail an implementation; the generator only checks that each payload fits after the omissions and, when
 there are any, not before them.
 """
@@ -22,6 +26,35 @@ POLICY = ["token_budget", "variants", "conflict_policy", "lineage", "eligibility
 T = "2026-09-22T12:00:00Z"
 TWO_53 = 2 ** 53
 BIG = 12345678901234567890  # the double nearest it is 12345678901234567168, which ECMAScript writes 12345678901234567000
+
+
+class Spelled(float):
+    """A number the snapshot writes exactly as given, such as 9007199254740993.0, where json.dumps would write the double's
+    shortest form. Its value is the nearest double, which Python's float() finds."""
+
+    def __new__(cls, text):
+        value = super().__new__(cls, text)
+        value.text = text
+        return value
+
+
+def dumps(value):
+    """json.dumps(indent=2), with each Spelled number written as its text."""
+    spelled = {}
+
+    def swap(v):
+        if isinstance(v, Spelled):
+            spelled[f"@spelled-{len(spelled)}@"] = v.text
+            return f"@spelled-{len(spelled) - 1}@"
+        if isinstance(v, dict):
+            return {k: swap(x) for k, x in v.items()}
+        if isinstance(v, list):
+            return [swap(x) for x in v]
+        return v
+    text = json.dumps(swap(value), indent=2, ensure_ascii=False)
+    for key, literal in spelled.items():
+        text = text.replace(json.dumps(key), literal)
+    return text + "\n"
 
 def item(id, slot, body, **fields):
     d = {"id": id, "slot": slot, "source": "src:" + id, "source_version": "1", "authority": DEFAULTS[slot]["authority"],
@@ -70,6 +103,45 @@ CASES = [
         "omitted": [], "tied": None,
         "rules": ["R-2", "R-13", "R-22"],
         "description": "Every number is a double, and the snapshot digest writes each as JavaScript does: 12345678901234567890, 12345678901234566500 and 1.2345678901234567e+19 are all the double 12345678901234567168, which RFC 8785 writes as 12345678901234567000, so each meets min_relevance 12345678901234567000, while 12345678901234566000 rounds to the double below and is below_threshold.",
+    },
+    {
+        "id": "doubles-nearest", "profile": "doubles-nearest", "route_policy_version": "doubles-nearest/v1",
+        # Halfway between 2^53 and 2^53 + 2: the nearest double ties, and rounds to the even one, 2^53.
+        "min_relevance": Spelled("9007199254740993.0"),
+        "rows": [
+            QUERY,
+            # 2^53 written with a fraction: equal to the threshold, so it passes (R-13).
+            ("policy-corpus", "retrieval", item("kb:a", "evidence.knowledge", "Refunds within 30 days return to the original card.", relevance=Spelled("9007199254740992.0")), "admit"),
+            # The threshold's halfway value written with an exponent: 2^53 again.
+            ("policy-corpus", "retrieval", item("kb:b", "evidence.knowledge", "Annual plans refund pro rata after 30 days.", relevance=Spelled("90071992547409930E-1")), "admit"),
+            # 2^53 - 1 is exact in a double and below the threshold.
+            ("policy-corpus", "retrieval", item("kb:c", "evidence.knowledge", "Refunds take five business days.", relevance=Spelled("9007199254740991.0")), "below_threshold"),
+            # Halfway between 2^52 and 2^52 + 1, which rounds to even, 2^52: far below, but the digest writes 4503599627370496.
+            ("policy-corpus", "retrieval", item("kb:d", "evidence.knowledge", "Refunds reach debit cards within ten days.", relevance=Spelled("4503599627370496.5")), "below_threshold"),
+            POLICY_ITEM,
+        ],
+        "omitted": [], "tied": None,
+        "rules": ["R-2", "R-13", "R-22"],
+        "description": "Every number is read as the nearest double however it is written: min_relevance 9007199254740993.0 is halfway between 2^53 and the double above and rounds to even, 2^53, so scores written 9007199254740992.0 and 90071992547409930E-1 are equal and pass, 9007199254740991.0 is below_threshold, and 4503599627370496.5 rounds to 4503599627370496, which the snapshot digest writes. A parser that is not correctly rounded reads some of these as a neighbouring double.",
+    },
+    {
+        "id": "doubles-largest", "profile": "doubles-largest", "route_policy_version": "doubles-largest/v1",
+        # The double below the largest.
+        "min_relevance": Spelled("1.7976931348623155e308"),
+        "rows": [
+            QUERY,
+            ("policy-corpus", "retrieval", item("kb:a", "evidence.knowledge", "Refunds within 30 days return to the original card.", relevance=Spelled("1.7976931348623155e308")), "admit"),
+            # The largest double, written with an exponent beyond 308.
+            ("policy-corpus", "retrieval", item("kb:b", "evidence.knowledge", "Annual plans refund pro rata after 30 days.", relevance=Spelled("1797693134862315700E290")), "admit"),
+            # Above the largest double but within half a step of it, so it rounds to it: a finite double, not out of range (Snapshot checks).
+            ("policy-corpus", "retrieval", item("kb:c", "evidence.knowledge", "Refunds take five business days.", relevance=Spelled("1.7976931348623158e308")), "admit"),
+            # The double below the threshold.
+            ("policy-corpus", "retrieval", item("kb:d", "evidence.knowledge", "Refunds reach debit cards within ten days.", relevance=Spelled("1.7976931348623153e308")), "below_threshold"),
+            POLICY_ITEM,
+        ],
+        "omitted": [], "tied": None,
+        "rules": ["R-2", "R-13", "R-17", "R-22"],
+        "description": "Every number is read as the nearest double, up to the largest: 1797693134862315700E290 is the largest double, and 1.7976931348623158e308, above it by less than half a step, rounds to it rather than out of range, so the snapshot is valid and both pass min_relevance 1.7976931348623155e308, the double below, which a score equal to it also passes, while 1.7976931348623153e308 is below_threshold.",
     },
 ]
 
@@ -142,7 +214,7 @@ def build(c):
     out = os.path.join(WEB, "conformance/cases", c["id"])
     os.makedirs(out, exist_ok=True)
     for name, value in [("snapshot.json", snapshot), ("expected.trace.json", trace), ("case.json", case)]:
-        open(os.path.join(out, name), "w").write(json.dumps(value, indent=2, ensure_ascii=False) + "\n")
+        open(os.path.join(out, name), "w").write(dumps(value))
     open(os.path.join(out, "expected.payload.txt"), "wb").write(payload)
     print(f"{c['id']}: {len(rows)} candidates: {len(kept)} included, {len(excluded)} excluded at admission, {len(omitted)} omitted; budget {budget['input']}, before {before}; {trace['result']}")
 

@@ -181,7 +181,8 @@ def build(case):
         for i in ranked([it for it in kept.values() if it["slot"] == slot], order_of(slot)):
             sources.setdefault((producer_of[i], kept[i]["source"]), []).append(i)
         for members in sources.values():
-            places = max(0, rules["max_per_source"] - sum(exempt(i) for i in members))
+            # A count is a double (Numbers): one written 2.0 is the integer 2, and a slice needs an int.
+            places = max(0, int(rules["max_per_source"]) - sum(exempt(i) for i in members))
             implied += [i for i in members if not exempt(i)][places:]
     assert capped == sorted(implied, key=U16), f"{name}: the capped list should be {sorted(implied, key=U16)}"
     for i in capped:

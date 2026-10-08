@@ -549,7 +549,7 @@
     "route_policy_version": "admission/v1",
     "tokenizer": "fixture-whitespace/v1",
     "renderer": "fixture-xml/v1",
-    "snapshot_digest": "8b37e3b5a09778f7974036522e4e7b5dafdeca847c03fb55d9087f49fe21ef4f"
+    "snapshot_digest": "5bfe0df012314da7b976ac9b0b302954f5f5fced1e8ef2ca75bde4fd715808a8"
   },
   "defaults_filled": [
     {
@@ -561,8 +561,16 @@
       "field": "token_budget"
     },
     {
+      "item_id": "m:expired",
+      "field": "lineage"
+    },
+    {
       "item_id": "obs:order-42",
       "field": "injection_risk"
+    },
+    {
+      "item_id": "rogue:1",
+      "field": "lineage"
     }
   ]
 }
