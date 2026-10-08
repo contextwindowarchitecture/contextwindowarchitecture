@@ -84,10 +84,12 @@ ROWS = [
     ("policy-corpus", item("kb:dup", "evidence.knowledge", "First copy."), "duplicate_item_id"),
     ("policy-corpus", item("kb:dup", "evidence.knowledge", "Second copy."), "duplicate_item_id"),
     # duplicate_item_id counts every candidate, whatever its own outcome, and every producer exclusion, in any batch.
+    # Defaults are still filled, and traced, for a schema-valid copy from an admitted producer (R-3): rogue:1 and m:expired
+    # leave lineage to the slot default.
     ("policy-corpus", item("kb:dup-invalid", "evidence.knowledge", "x", omit=("body",)), "missing_field:body"),
     ("policy-corpus", item("kb:dup-invalid", "evidence.knowledge", "A valid copy of a schema-invalid candidate's id."), "duplicate_item_id"),
-    ("policy-corpus", item("rogue:1", "evidence.knowledge", "The id of an unauthenticated producer's candidate."), "duplicate_item_id"),
-    ("policy-corpus", item("m:expired", "evidence.knowledge", "The id of another producer's exclusion."), "duplicate_item_id"),
+    ("policy-corpus", item("rogue:1", "evidence.knowledge", "The id of an unauthenticated producer's candidate.", omit=("lineage",)), "duplicate_item_id"),
+    ("policy-corpus", item("m:expired", "evidence.knowledge", "The id of another producer's exclusion.", omit=("lineage",)), "duplicate_item_id"),
     # missing_field names the item's own fields; a variant missing one of its fields is invalid_structure.
     ("policy-corpus", item("kb:variant-no-method", "evidence.knowledge", "Long chunk.",
                            variants=[{"id": "kb:variant-no-method~short", "body": "Short.", "lineage": "extracted"}]), "invalid_structure"),

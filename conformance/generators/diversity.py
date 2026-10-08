@@ -95,6 +95,16 @@ CASES = [
     },
 ]
 
+# diversity-cap with its cap written 2.0: the same double as 2, which JSON Schema also counts as an integer, so the same
+# decisions, the same digest (RFC 8785 writes 2) and the same payload.
+CASES.append({
+    **CASES[0], "id": "integer-written-as-double",
+    "rules": ["R-2", "R-26"],
+    "description": "Every number is a double: a slot capped at max_per_source 2.0 is capped at 2, as in diversity-cap, whose candidates and "
+                   "decisions this case repeats, so each document keeps its two highest-ranked chunks.",
+    "policy": {"slots": {"evidence.knowledge": {**KNOWLEDGE, "max_per_source": 2.0, "dedupe": "exact"}}},
+})
+
 if __name__ == "__main__":
     for case in CASES:
         build(case)
