@@ -4,7 +4,9 @@ Context Window Architecture is a draft specification, and changes to it are welc
 
 ## Before you open a pull request
 
-Ask a question in [Discussions](https://github.com/contextwindowarchitecture/contextwindowarchitecture/discussions), and report a problem as an issue first when it is not plain what the fix is. A change to what a requirement means is easier to agree in an issue than in a diff.
+Ask a question in [Discussions](https://github.com/contextwindowarchitecture/contextwindowarchitecture/discussions), and report a problem as an issue first when it is not plain what the fix is.
+
+A change to what a requirement (R-n), a schema, a reason code, a renderer or tokenizer, or a normative rule in `conformance/README.md` means is a CWA Enhancement Proposal (CEP): start with an idea in the [Ideas](https://github.com/contextwindowarchitecture/contextwindowarchitecture/discussions/categories/ideas) category of Discussions, and see [proposals/README.md](proposals/README.md) for the stages it goes through and how it is decided. Editorial fixes, a case that does not match the rules as written, new cases for rules that already exist, and implementation listings need no CEP; they take the path below. When it is not plain which applies, ask in an issue.
 
 ## What a pull request needs
 
@@ -22,7 +24,7 @@ Ask a question in [Discussions](https://github.com/contextwindowarchitecture/con
 - **A bullet in `CHANGES.md` for a change to the specification**: a requirement, a schema, a reason code, a rule in `conformance/README.md`, or a case. Add it to the newest revision, or start a new one dated today, newest first. `check.py --write` then dates `SPEC.md` by it. Wording that changes no rule needs none.
 - **Every commit is signed off.** Add a `Signed-off-by` line with your name and email, as `git commit -s` does. It certifies that you can contribute the change under the project's licence, as the [Developer Certificate of Origin](https://developercertificate.org) sets out. CI checks each commit for it.
 
-Pull requests are squash-merged by a maintainer.
+Pull requests are squash-merged by a maintainer. [GOVERNANCE.md](GOVERNANCE.md) says who the maintainers are, how they decide, and how to become one.
 
 ## Listing an implementation
 
