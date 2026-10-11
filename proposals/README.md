@@ -48,7 +48,7 @@ A CEP moves on when it has the artifact its stage asks for, not when a meeting a
 
 **Candidate.** At least two assemblers, run against the branch's head commit, pass every published case and reject every published rejection, skipping only what Reporting results in conformance/README.md allows. Their reports are linked from the pull request. For each assembler listed in implementations/ that does not yet pass, an issue in its repository links the CEP and names the cases it fails. These reports are evidence for the decision and are not imported into implementations/: after the merge, each assembler runs the merged commit, and its report is imported as usual. When the branch's text, schemas or cases change after this, the reports are run again.
 
-**Final.** A motion to merge has passed its final comment period (Decisions). The last commit on the branch sets the status to Final and, for a Standards CEP, adds a bullet to CHANGES.md that names the CEP. A maintainer squash-merges it.
+**Final.** A motion to merge has passed its final comment period (Decisions). The last commit on the branch sets the status to Final, adds the CEP's row to the index below and, for a Standards CEP, adds a bullet to CHANGES.md that names the CEP. A maintainer squash-merges it.
 
 A CEP can also end, or wait, in one of these:
 
@@ -95,6 +95,8 @@ A CEP's number is the number of the pull request that adds it, zero-padded to fo
 Every assembler listed today, in Python, TypeScript, Go and Rust, was written by the specification's author. Two passing reports at Candidate therefore show that the change can be implemented and that its cases are consistent, not that someone else reads the text the same way. W3C asks for independent implementations before a Recommendation, and RFC 7942 has an Internet-Draft record who implemented it. For CWA, independent implementations, written and maintained by people other than the specification's authors from its text and cases, are a milestone for 1.0: before a 1.0 release, at least two independent assemblers pass every published case. They are not a gate on each CEP, which would hold every change until such assemblers exist. Each CEP's Reference implementations section says who wrote each implementation it cites, so the record shows how independent its evidence was.
 
 ## Index
+
+Every CEP that has merged or closed, with its status. A CEP still in progress is an open pull request labelled `cep`. A maintainer adds the row of one that closes without merging.
 
 | CEP | Title | Type | Status |
 | --- | --- | --- | --- |
