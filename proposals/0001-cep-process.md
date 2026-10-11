@@ -8,7 +8,7 @@
 | Sponsor | Melvin Hillsman |
 | Status | Draft |
 | Type | Process |
-| Discussion | _to be linked: a Discussion in the Governance category_ |
+| Discussion | [Discussion #9](https://github.com/contextwindowarchitecture/contextwindowarchitecture/discussions/9) |
 | Created | 2026-10-11 |
 | Supersedes | none |
 

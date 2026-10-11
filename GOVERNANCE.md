@@ -77,16 +77,16 @@ These rules are written now and take effect at the thresholds below. Each applie
 
 ### Records and venues
 
-Every decision is made and recorded in public. A CEP's motion, objections, answers and outcome are on its pull request and in its announcement. Maintainer changes, votes and changes to this document are in Governance Discussions. A decision reached in a call or a chat counts only once it is posted there with its reasons. Reports about a person's conduct are handled privately; the outcome is posted.
+Every decision is made and recorded in public. A CEP's motion, objections, answers and outcome are on its pull request and in its announcement. Maintainer changes and votes are in Governance Discussions, and a change to this document is a Process CEP, recorded like any other. A decision reached in a call or a chat counts only once it is posted there with its reasons. Reports about a person's conduct are handled privately; the outcome is posted.
 
 GitHub Discussions is the venue for everything that is not an issue or a pull request:
 
 | Category | Used for |
 | --- | --- |
 | Q&A | Questions |
-| Ideas | The Idea stage of a CEP |
+| Ideas | The Idea stage of a CEP, Process CEPs included |
 | Announcements | Final comment periods and the decisions that end them, posted by maintainers |
-| Governance | Nominations, votes, affiliation questions and changes to this document |
+| Governance | Nominations, votes and affiliation questions |
 
 Issues report problems, and pull requests change files. No mailing list, chat or meeting is required, and none is a place where decisions are made.
 
