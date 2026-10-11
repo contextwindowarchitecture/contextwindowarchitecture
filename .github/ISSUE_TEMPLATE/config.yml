@@ -3,6 +3,9 @@ contact_links:
   - name: A question
     url: https://github.com/contextwindowarchitecture/contextwindowarchitecture/discussions
     about: Ask in Discussions; issues are for problems and proposed changes.
+  - name: An idea for what the specification should mean
+    url: https://github.com/contextwindowarchitecture/contextwindowarchitecture/discussions/categories/ideas
+    about: A change to what a rule means starts as an Idea in Discussions and becomes a CWA Enhancement Proposal (proposals/README.md).
   - name: A problem with the website
     url: https://github.com/contextwindowarchitecture/website/issues
     about: The pages, tools and guides as the site presents them. The specification itself is here.

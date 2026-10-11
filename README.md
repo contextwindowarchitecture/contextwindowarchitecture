@@ -24,6 +24,8 @@ This repository holds the specification by itself: its text, its JSON Schemas, i
 | [conformance/registry/](conformance/registry) | The profiles and route policies the cases name, and the lock that pins them |
 | [implementations/](implementations) | Each listed implementation's conformance report as its own repository publishes it, with the commit it came from and the digests of the cases it ran |
 | [examples/](examples) | An item, a producer batch, conflict groups, profiles and the route policies they name, a payload with its matching trace, and a message request with its snapshot and trace |
+| [proposals/](proposals/README.md) | CWA Enhancement Proposals: how a change to what the specification means is proposed and decided, and each proposal |
+| [GOVERNANCE.md](GOVERNANCE.md) | Who maintains the specification, how decisions are made and recorded, and how to become a maintainer |
 
 ## Where to start
 
@@ -43,7 +45,7 @@ While the specification is a draft, the `draft-release` tag moves with each chan
 
 ## Contributing
 
-Ask a question in [Discussions](https://github.com/contextwindowarchitecture/contextwindowarchitecture/discussions). Report a problem with the text, a schema or a case as an issue. To propose a change, open a pull request; [CONTRIBUTING.md](CONTRIBUTING.md) says what one needs.
+Ask a question in [Discussions](https://github.com/contextwindowarchitecture/contextwindowarchitecture/discussions). Report a problem with the text, a schema or a case as an issue. A change to what the specification means goes through a CWA Enhancement Proposal ([proposals/](proposals/README.md)); any other change is a pull request, and [CONTRIBUTING.md](CONTRIBUTING.md) says what one needs. [GOVERNANCE.md](GOVERNANCE.md) says who decides and how.
 
 Checking a change takes Python 3.11 or newer and nothing else from this project:
 

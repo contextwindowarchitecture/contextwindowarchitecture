@@ -1,7 +1,13 @@
-name: A change to the specification
-description: Propose or report a change to SPEC.md, a schema, the contract data or conformance/README.md.
+name: A problem with the specification
+description: Report a problem in SPEC.md, a schema, the contract data or conformance/README.md. A change to what a rule means is decided through a CEP.
 labels: ["spec"]
 body:
+  - type: markdown
+    attributes:
+      value: |
+        Report the problem here. Fixing it takes one of two paths ([proposals/README.md](https://github.com/contextwindowarchitecture/contextwindowarchitecture/blob/main/proposals/README.md)):
+        - **An editorial fix or a broken case** (wording that changes no rule, or a case that does not match the rules as written) is a pull request, as CONTRIBUTING.md says.
+        - **A change to what a requirement, schema, reason code, renderer, tokenizer or rule in conformance/README.md means** is a CWA Enhancement Proposal. This issue can serve as its Idea.
   - type: textarea
     id: what
     attributes:
@@ -14,5 +20,16 @@ body:
     attributes:
       label: Why
       description: What goes wrong as it stands. A snapshot or trace that shows it helps most.
+    validations:
+      required: true
+  - type: dropdown
+    id: kind
+    attributes:
+      label: Does it change what a rule means?
+      description: A maintainer confirms which path applies when triaging.
+      options:
+        - "No: an editorial fix, or a case that does not match the rules as written"
+        - "Yes: it changes what a rule means, so it needs a CEP"
+        - "Not sure"
     validations:
       required: true
