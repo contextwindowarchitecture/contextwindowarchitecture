@@ -1,6 +1,6 @@
 # CWA for producers
 
-> How to build a producer for Context Window Architecture (CWA): anything that emits candidate items into a slot, such as a retriever, a memory store, an MCP adapter, a state service, the capability policy, a policy loader or the conversation. It follows the Producers page, https://contextwindowarchitecture.io/producers.html. Rules are cited by their permanent number (R-n) and are normative in [SPEC.md](../SPEC.md), which the Spec page, https://contextwindowarchitecture.io/spec.html, renders. Its list of stages, its tables of slots, authority values and exclusion codes, and its example batch are written from the contract files by `python3 conformance/check.py --write`.
+> How to build a producer for Context Window Architecture (CWA): anything that emits candidate items into a slot, such as a retriever, a memory store, an MCP adapter, a state service, the capability policy, a policy loader or the conversation. Rules are cited by their permanent number (R-n) and are normative in [SPEC.md](../SPEC.md), which the Spec page, https://contextwindowarchitecture.io/spec.html, renders. Its list of stages, its tables of slots, authority values and exclusion codes, and its example batch are written from the contract files by `python3 conformance/check.py --write`.
 
 ## What a producer is
 
@@ -254,12 +254,11 @@ Every exclusion lands in the trace as `excluded[] { item_id, reason, stage }`, p
 ## Checking your output
 
 - Validate each item against schema/context_item.schema.json and each batch against schema/producer_batch.schema.json with a JSON Schema 2020-12 validator that asserts `format`. The date-time `pattern` pins the shape but not the calendar, so a validator that leaves `format: date-time` unasserted accepts `2026-02-30`.
-- The Producers page shows the site's local checks at work on sample items and batches, to see CWA in action rather than to check your own output. `checkItem` and `checkProducerBatch` in https://contextwindowarchitecture.io/contract.js run the same checks. They judge structure and the rules an item shows on its own. They cannot authenticate producers or apply the route, so producer kinds and their slots, the capability grant, the verified flag, scope, `max_age_seconds`, `min_relevance`, `source_prefix`, placement and ids across a snapshot go unchecked. Passing them is not admission.
+- `checkItem` and `checkProducerBatch` in https://contextwindowarchitecture.io/contract.js run the site's local checks on an item or a batch, to see CWA in action rather than to check your own output. They judge structure and the rules an item shows on its own. They cannot authenticate producers or apply the route, so producer kinds and their slots, the capability grant, the verified flag, scope, `max_age_seconds`, `min_relevance`, `source_prefix`, placement and ids across a snapshot go unchecked. Passing them is not admission.
 - Admission happens in an assembler. To see it, freeze a snapshot that holds your batch and run it through one of the implementations (the [assembler guide](assemblers.md)): the trace's `excluded` rows say what happened to each item, and `defaults_filled` which fields the assembler filled.
 
 ## Sources
 
-- Producer contract page: https://contextwindowarchitecture.io/producers.html
 - Spec, sections 2 to 4: https://contextwindowarchitecture.io/spec.html
 - Requirements: [SPEC.md](../SPEC.md)
 - Item schema: [schema/context_item.schema.json](../schema/context_item.schema.json)
