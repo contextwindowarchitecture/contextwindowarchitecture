@@ -21,9 +21,10 @@ It checks, in this order:
   contract/model.json and examples/profiles.json write there, its draft date the newest revision's in CHANGES.md, whose
   revisions run newest first, its sections 1 to 6 in order with each requirement once in its own, and every file it
   links beside it;
-- guides/producers.md and guides/assemblers.md: each block between `generated` markers equal to what the contract files
-  and implementations/ write there, every requirement and snake_case identifier they cite defined by the contract, and
-  every file they link in this repository.
+- guides/producers.md, guides/assemblers.md and guides/mcp.md: each block between `generated` markers equal to what the
+  contract files and implementations/ write there, every requirement and snake_case identifier they cite defined by the
+  contract (or, in the MCP guide, by the MCP revision it maps), every example batch valid, and every file they link in
+  this repository.
 
 - implementations/: every entry listed in index.json, stored whole as conformance/import_report.py writes it, from a
   clean checkout, valid against the report schema of the commit it ran against, with the digests that commit's cases
@@ -50,6 +51,7 @@ except ImportError:  # pragma: no cover
 if "date-time" not in FormatChecker.checkers:  # pragma: no cover
     sys.exit("check.py needs rfc3339-validator, so that format: date-time is asserted (conformance/README.md, Timestamps): pip install rfc3339-validator")
 
+GUIDE_FOREIGN = {"guides/mcp.md": {"input_required", "list_changed"}}  # names MCP 2026-07-28 defines, which the contract does not
 UNTESTABLE = {"R-5"}  # the application enforces invariants; nothing observable in assembly can prove it
 XML_WRAP = re.compile(r"^xml:[A-Za-z_][A-Za-z0-9_.-]*$")
 POLICY_FIELDS = ["token_budget", "variants", "conflict_policy", "lineage", "eligibility", "injection_risk"]
@@ -74,7 +76,7 @@ registry = Registry().with_resources([(k, Resource.from_contents(v)) for k, v in
 def validator(name):
     return Draft202012Validator(schemas[f"https://contextwindowarchitecture.io/schema/{name}"], registry=registry, format_checker=FormatChecker())
 V_SNAPSHOT, V_TRACE, V_PROFILE, V_POLICY = validator("snapshot.schema.json"), validator("trace.schema.json"), validator("profile.schema.json"), validator("route_policy.schema.json")
-V_LOCK, V_REPORT = validator("registry_lock.schema.json"), validator("conformance_report.schema.json")
+V_LOCK, V_REPORT, V_BATCH = validator("registry_lock.schema.json"), validator("conformance_report.schema.json"), validator("producer_batch.schema.json")
 def first_error(v, doc):
     errors = list(v.iter_errors(doc))
     return None if not errors else f"{errors[0].message[:160]} at /{'/'.join(str(p) for p in errors[0].absolute_path)}"
@@ -332,7 +334,7 @@ js = lambda v: "null" if v is None else "true" if v is True else "false" if v is
 def plain_table(head, rows): return md_table(head, [[js(c) for c in row] for row in rows])
 
 def guide_blocks():
-    """The blocks between generated markers in guides/: what the guide for producers and the guide for assemblers list."""
+    """The blocks between generated markers in guides/: what the guide for producers and the guide for assemblers list. The MCP guide has none."""
     ordered = sorted(requirements, key=lambda r: int(r["id"][2:]))
     scopes = load("contract/assembler-scope.json")
     plane = {p["id"]: p["name"] for p in model["planes"]}
@@ -354,6 +356,7 @@ def guide_blocks():
             "implementations": plain_table(["Language", "Package", "Repository"], [[i["label"], f"{code(e['report']['implementation']['name'])} {e['report']['implementation']['version']}",
                                                                                   f"https://github.com/{e['source']['repository']}"] for i, e in listed]),
         },
+        "guides/mcp.md": {},
     }
 
 def rewrite_blocks(path, want, write):
@@ -376,7 +379,10 @@ def check_guides(write):
         for n in re.findall(r"\bR-(\d+)\b", text):
             if not 1 <= int(n) <= len(requirements): problem(f"{path} cites R-{n}, which does not exist")
         for name in sorted(set(re.findall(r"`([a-z]+(?:_[a-z0-9]+)+)`", text))):
-            if name not in defined: problem(f"{path} names {name}, which the contract does not define")
+            if name not in defined and name not in GUIDE_FOREIGN.get(path, ()): problem(f"{path} names {name}, which the contract does not define")
+        for block in re.findall(r"```json\n(.*?)\n```", text, re.S):
+            doc = json.loads(block)
+            if isinstance(doc, dict) and "items" in doc and (e := first_error(V_BATCH, doc)): problem(f"{path}: an example batch is invalid: {e}")
         for target in re.findall(r"\]\(([^)\s]+)\)", text):
             if not re.match(r"^[a-z]+:|^#", target) and not os.path.exists(os.path.join(ROOT, os.path.dirname(path), target.split("#")[0])):
                 problem(f"{path} links {target}, which is not in this repository")
