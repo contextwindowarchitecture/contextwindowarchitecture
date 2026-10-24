@@ -8,7 +8,7 @@
 | Sponsor | Melvin Hillsman |
 | Status | Proposal |
 | Type | Standards |
-| Discussion | To be opened in Ideas; related: [issue #2](https://github.com/contextwindowarchitecture/contextwindowarchitecture/issues/2) |
+| Discussion | [Discussion #15](https://github.com/contextwindowarchitecture/contextwindowarchitecture/discussions/15); related: [issue #2](https://github.com/contextwindowarchitecture/contextwindowarchitecture/issues/2) |
 | Created | 2026-10-22 |
 | Supersedes | none |
 
