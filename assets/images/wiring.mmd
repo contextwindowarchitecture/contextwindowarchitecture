@@ -1,0 +1,34 @@
+%% Source for wiring-light.svg and wiring-dark.svg: the components of one model call, and how this repository reaches the implementations.
+flowchart LR
+  subgraph RUN["At run time: one model call"]
+    direction LR
+    PROD["Producers<br/>retrieval, memory, state, MCP adapter,<br/>capability policy, history, query"]
+    APP["Application<br/>authenticates producers, reads the clock once,<br/>declares conflict groups, sets route, profile,<br/>budget, tokenizer and renderer"]
+    REG["Registry<br/>profiles and route policies pinned by digest"]
+    ASM["Assembler, no I/O, clock or model calls<br/>1 validate, 2 admit, 3 resolve conflicts,<br/>4 supersede, 5 deduplicate, 6 cap per source,<br/>7 refuse or fit, 8 render, count, hash, 9 trace"]
+    OK["Assembled<br/>payload bytes and trace with result.hash"]
+    REF["Refused<br/>trace with a reason code, no payload"]
+    REJ["Rejected<br/>no payload, no trace"]
+    MODEL["Model<br/>receives the payload with no added text"]
+    PROD -->|"batches"| APP
+    REG --> APP
+    APP -->|"snapshot"| ASM
+    ASM --> OK
+    ASM --> REF
+    ASM --> REJ
+    OK -->|"payload"| MODEL
+    MODEL -.->|"answer or tool call, checked by the tool guard;<br/>results feed the next call"| PROD
+  end
+  subgraph REPO["In this repository"]
+    direction LR
+    CON["Contract<br/>SPEC.md, contract/, schema/"]
+    CASES["Conformance<br/>cases/, rejections/"]
+    IMPLS["Assemblers<br/>Python, TypeScript, Go, Rust"]
+    REPS["Reports<br/>implementations/, import_report.py"]
+    WEB["Website<br/>Assembler page counts each report"]
+    CON -->|"generates"| CASES
+    CASES -->|"vendored, pinned by SHA-256"| IMPLS
+    IMPLS -->|"conformance-report.json"| REPS
+    REPS --> WEB
+  end
+  IMPLS -.->|"implements"| ASM
