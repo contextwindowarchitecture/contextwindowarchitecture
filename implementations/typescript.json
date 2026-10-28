@@ -1,10 +1,11 @@
 {
   "source": {
     "repository": "contextwindowarchitecture/assembler-typescript",
-    "commit": "c533e4455073a27a2d5a4c65a3ddd62effa3795e",
+    "commit": "9803c77768b5dba40f812f328b5d5f5060e61d05",
     "dirty": false,
     "tags": [
-      "draft-release"
+      "draft-release",
+      "v0.0.3"
     ]
   },
   "cases_at_run": {
@@ -102,7 +103,7 @@
   "report": {
     "implementation": {
       "name": "@contextwindowarchitecture/assembler",
-      "version": "0.0.1",
+      "version": "0.0.3",
       "language": "TypeScript"
     },
     "contract": {

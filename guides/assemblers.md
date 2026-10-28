@@ -1,6 +1,6 @@
 # CWA for assemblers
 
-> How to use a Context Window Architecture (CWA) assembler, or build one: the component that turns a frozen snapshot into a rendered payload and a trace. Four implementations exist, in Python, TypeScript, Go and Rust, built independently from the published contract, and none is released. Rules are cited by their permanent number (R-n) and are normative in [SPEC.md](../SPEC.md), which the Spec page, https://contextwindowarchitecture.io/spec.html, renders; conformance/README.md is normative wherever they leave an ordering, tie-break, boundary or algorithm step open (R-21). Its tables of refusal codes and requirement scope and its list of implementations are written from the contract files and [implementations/index.json](../implementations/index.json) by `python3 conformance/check.py --write`; the copy on the site, https://contextwindowarchitecture.io/llms-assemblers.txt, also counts each implementation's report against the published cases.
+> How to use a Context Window Architecture (CWA) assembler, or build one: the component that turns a frozen snapshot into a rendered payload and a trace. Four implementations exist, in Python, TypeScript, Go and Rust, built independently from the published contract; each is a draft that tracks `cwa/draft`. Rules are cited by their permanent number (R-n) and are normative in [SPEC.md](../SPEC.md), which the Spec page, https://contextwindowarchitecture.io/spec.html, renders; conformance/README.md is normative wherever they leave an ordering, tie-break, boundary or algorithm step open (R-21). Its tables of refusal codes and requirement scope and its list of implementations are written from the contract files and [implementations/index.json](../implementations/index.json) by `python3 conformance/check.py --write`; the copy on the site, https://contextwindowarchitecture.io/llms-assemblers.txt, also counts each implementation's report against the published cases.
 
 ## What an assembler does
 
@@ -119,20 +119,24 @@ Each is a place where languages disagree. Most have a published case written to 
 
 ## Using an implementation
 
-None is released, so work from a checkout. Each publishes a conformance report, and the Assembler page counts it against the published cases as they are now: a case published or changed since the run does not count as passing (conformance/README.md, Reporting results).
+The TypeScript assembler is published to npm and the Rust assembler to crates.io; the Python and Go assemblers install from their repositories' `draft-release` tag. Each is a draft that tracks `cwa/draft`, so its API and snapshot format can change before v1. The version in the table is the one each conformance report names. Each publishes a conformance report, and the Assembler page counts it against the published cases as they are now: a case published or changed since the run does not count as passing (conformance/README.md, Reporting results).
 
 <!-- generated:implementations -->
 
 | Language | Package | Repository |
 | --- | --- | --- |
 | Python | `contextwindowarchitecture-assembler` 0.0.1 | https://github.com/contextwindowarchitecture/assembler-python |
-| TypeScript | `@contextwindowarchitecture/assembler` 0.0.1 | https://github.com/contextwindowarchitecture/assembler-typescript |
+| TypeScript | `@contextwindowarchitecture/assembler` 0.0.3 | https://github.com/contextwindowarchitecture/assembler-typescript |
 | Go | `github.com/contextwindowarchitecture/assembler-go` 0.0.1 | https://github.com/contextwindowarchitecture/assembler-go |
 | Rust | `contextwindowarchitecture-assembler` 0.0.1 | https://github.com/contextwindowarchitecture/assembler-rust |
 
 <!-- /generated:implementations -->
 
-Python, module `cwa` (Python 3.11 or newer; `uv sync` in the checkout):
+Python, module `cwa` (Python 3.11 or newer), from the `draft-release` tag; it is not on PyPI:
+
+```sh
+uv add "contextwindowarchitecture-assembler @ git+https://github.com/contextwindowarchitecture/assembler-python@draft-release"
+```
 
 ```python
 import json
@@ -148,7 +152,11 @@ snapshot.digest() # context.snapshot_digest, the replay key
 
 Pass your own tokenizers as `Snapshot.from_json(document, tokenizers={tok.id: tok})`, where any object with an `id` and a `count(text)` will do. A registry in `cwa.registry` pins profiles and route policies by digest and returns only evaluated profiles in deployment mode.
 
-TypeScript, package `@contextwindowarchitecture/assembler` (Node.js 22 or newer, ESM; `pnpm install --frozen-lockfile && pnpm run build` in the checkout):
+TypeScript, package `@contextwindowarchitecture/assembler` (Node.js 22 or newer, ESM), from npm:
+
+```sh
+npm install @contextwindowarchitecture/assembler
+```
 
 ```ts
 import { assemble, checkSnapshot, SnapshotRejectedError, UnsupportedComponentError } from '@contextwindowarchitecture/assembler';
@@ -158,7 +166,11 @@ const { payload, trace } = assemble(snapshot); // payload: Uint8Array, or null w
 
 `assemble(snapshot, { tokenizers })` takes your own tokenizers keyed by their IDs; it accepts no renderer of the application's own. `checkSnapshot(snapshot)` lists a snapshot's problems without assembling.
 
-Go, module `github.com/contextwindowarchitecture/assembler-go`, package `assembler` (Go 1.26 or newer):
+Go, module `github.com/contextwindowarchitecture/assembler-go`, package `assembler` (Go 1.26 or newer), from the `draft-release` tag; it has no semver tag:
+
+```sh
+go get github.com/contextwindowarchitecture/assembler-go@draft-release
+```
 
 ```go
 result, err := assembler.Assemble(snapshotJSON, assembler.Options{})
@@ -168,7 +180,11 @@ result, err := assembler.Assemble(snapshotJSON, assembler.Options{})
 
 `Options.Tokenizers` takes your own tokenizers for one call; there is no option for a renderer.
 
-Rust, crate `contextwindowarchitecture-assembler` (Rust 1.80 or newer; a git dependency on the repository):
+Rust, crate `contextwindowarchitecture-assembler` (Rust 1.80 or newer), from crates.io, or as a git dependency with `tag = "draft-release"` to follow the current draft:
+
+```sh
+cargo add contextwindowarchitecture-assembler
+```
 
 ```rust
 use contextwindowarchitecture_assembler::{assemble, assemble_with, Error, Options};
