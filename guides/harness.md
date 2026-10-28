@@ -262,7 +262,7 @@ flowchart LR
 3. **Log what you send and why.** Even a hand-rolled version of the trace's `included` and `excluded` lists answers most debugging questions.
 4. **Give pieces tiers and budgets.** Decide what must never be cut, what can shrink, and what goes first.
 5. **Move state and memory into producers.** State is written by the application. Memory carries an expiry and a source turn (R-8, R-9).
-6. **Adopt an assembler.** There are four, in Python, TypeScript, Go and Rust, each built from the published contract. The specification is a draft and none is released, so read each one's conformance report in [implementations/](../implementations) before relying on it.
+6. **Adopt an assembler.** There are four, in Python, TypeScript, Go and Rust, each built from the published contract. Each is a draft that tracks `cwa/draft`, and [Using an implementation](assemblers.md#using-an-implementation) says where each is published. Read each one's conformance report in [implementations/](../implementations) before relying on it.
 7. **Declare routes, conflict groups and profiles, and evaluate the profiles.**
 
 ## Where it costs you, and what it does not do
