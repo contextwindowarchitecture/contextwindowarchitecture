@@ -21,10 +21,10 @@ It checks, in this order:
   contract/model.json and examples/profiles.json write there, its draft date the newest revision's in CHANGES.md, whose
   revisions run newest first, its sections 1 to 6 in order with each requirement once in its own, and every file it
   links beside it;
-- guides/producers.md, guides/assemblers.md and guides/mcp.md: each block between `generated` markers equal to what the
-  contract files and implementations/ write there, every requirement and snake_case identifier they cite defined by the
-  contract (or, in the MCP guide, by the MCP revision it maps), every example batch valid, and every file they link in
-  this repository.
+- guides/producers.md, guides/assemblers.md, guides/mcp.md and guides/harness.md: each block between `generated` markers
+  equal to what the contract files and implementations/ write there, every requirement and snake_case identifier they
+  cite defined by the contract (or, in the MCP guide, by the MCP revision it maps), every example batch valid, and every
+  file they link in this repository.
 
 - implementations/: every entry listed in index.json, stored whole as conformance/import_report.py writes it, from a
   clean checkout, valid against the report schema of the commit it ran against, with the digests that commit's cases
@@ -334,7 +334,7 @@ js = lambda v: "null" if v is None else "true" if v is True else "false" if v is
 def plain_table(head, rows): return md_table(head, [[js(c) for c in row] for row in rows])
 
 def guide_blocks():
-    """The blocks between generated markers in guides/: what the guide for producers and the guide for assemblers list. The MCP guide has none."""
+    """The blocks between generated markers in guides/: what the guide for producers and the guide for assemblers list. The MCP and harness guides have none."""
     ordered = sorted(requirements, key=lambda r: int(r["id"][2:]))
     scopes = load("contract/assembler-scope.json")
     plane = {p["id"]: p["name"] for p in model["planes"]}
@@ -357,6 +357,7 @@ def guide_blocks():
                                                                                   f"https://github.com/{e['source']['repository']}"] for i, e in listed]),
         },
         "guides/mcp.md": {},
+        "guides/harness.md": {},
     }
 
 def rewrite_blocks(path, want, write):
